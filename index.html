@@ -16,21 +16,14 @@
                 <h1>Neighborhood Map</h1>
             </div>
             <div class="row">
-                <div class="col-md-3">Some stuff here</div>
+                <div class="col-md-3">Nothing interesting to see here. Just some API-calls.  </div>
                 <div class="col-md-9 map" id="map">asdfsd</div>
 
             </div>
         </div>
-        <script>
-          var map;
-          function initMap() {
-            // Constructor creates a new map - only center and zoom are required.
-            map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: 41.875993, lng: 12.3822245},
-              zoom: 11
-            });
-          }
-        </script>
+        <script
+            src="js/map.js"
+        ></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOuSETzz0sZHZm-x5LIEKX7KQlmb5c4Y&v=3&callback=initMap"></script>
     </body>
 </html>
