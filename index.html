@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Neighborhood Map</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/master.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h1>Neighborhood Map</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Some stuff here</div>
+                <div class="col-md-9 map" id="map">asdfsd</div>
+
+            </div>
+        </div>
+        <script>
+          var map;
+          function initMap() {
+            // Constructor creates a new map - only center and zoom are required.
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 41.875993, lng: 12.3822245},
+              zoom: 11
+            });
+          }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOuSETzz0sZHZm-x5LIEKX7KQlmb5c4Y&v=3&callback=initMap"></script>
+    </body>
+</html>
