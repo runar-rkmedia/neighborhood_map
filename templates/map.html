@@ -4,10 +4,11 @@
             <h1>Neighborhood Map</h1>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                {% for place in places %}
-                <div class="place">{{ place.name }}</div>
-                {% endfor %}
+            <div class="col-md-3" data-bind="with: chosenPlaceData">
+                <ul data-bind="foreach: places">
+                    <li data-bind="text: name"></li>
+                </ul>
+                <div class="" data-bind="text: name"></div>
             </div>
             <div class="col-md-9 map" id="map">asdfsd</div>
 

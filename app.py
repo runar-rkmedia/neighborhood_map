@@ -18,12 +18,8 @@ configure_app(app)
 @app.route('/')
 def view_map():
     """View for home."""
-    places = Place.query.all()
-    markers = Marker.query.all()
     return render_template(
         'map.html',
-        places=places,
-        markers=markers,
     )
 
 
