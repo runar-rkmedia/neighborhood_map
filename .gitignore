@@ -72,3 +72,8 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+static/css/
+virtualEnv/
+instance/
+*.db
