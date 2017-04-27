@@ -1,4 +1,4 @@
-function WebmailViewModel() {
+function SidepanelView() {
     // Data
     var self = this;
     self.chosenPlaceId = ko.observable();
@@ -6,4 +6,4 @@ function WebmailViewModel() {
     $.get("/json/places/",self.chosenPlaceData);
 }
 
-ko.applyBindings(new WebmailViewModel());
+ko.applyBindings(new SidepanelView());

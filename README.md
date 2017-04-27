@@ -1,3 +1,23 @@
+# Getting up and running
+
+To install the required packages, do this:
+```
+pip install -r requirements.txt
+```
+
+then run this command to generate the default database:
+```
+python app.py --setup
+```
+
+And to start the server in debug mode:
+```
+python app.py
+```
+
+
+
+# Notes
 - SAP (Knockout)
 - Bootstrap/Backbone?
 - Google Maps
