@@ -5,7 +5,6 @@ function inditMap() {
     var markers = [];
 
 }
-var map;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
@@ -13,11 +12,6 @@ var markers = [];
 function initMap() {
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 41.875993,
-            lng: 12.3822245
-        },
-        zoom: 11,
         mapTypeControl: false
     });
 
@@ -32,13 +26,9 @@ function initMap() {
     }, ];
 
     // Constructor creates a new map - only center and zoom are required.
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 41.875993,
-            lng: 12.3822245
-        },
-        zoom: 11
-    });
+    map.setCenter({lat: 41.875993,
+    lng: 12.3822245});
+    map.setZoom(11)
 
     var largeInfowindow = new google.maps.InfoWindow();
 

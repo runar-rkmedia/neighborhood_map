@@ -10,6 +10,7 @@ class BaseConfig(object):
     # In production, a truly random key shoud be stored in a production-config,
     # which will override this. For dev-purposes, just use 'dev' as secret key.
     SECRET_KEY = 'dev'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(BaseConfig):
