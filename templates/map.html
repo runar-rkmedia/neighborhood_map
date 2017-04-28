@@ -4,26 +4,35 @@
             <h1>Neighborhood Map</h1>
         </div>
         <div class="row">
+            <!-- Sidepanel -->
+            <aside class="col-sm-3 sidepanel">
+                <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
+                <div class="" data-bind="text: userFilter">
+
+                </div>
             <!-- Places -->
-            <div class="col-md-3" data-bind="if: showPlacesList">
-                <h2>Places:</h2>
-                <ul data-bind="foreach: places">
-                    <li data-bind="text: name, click: $root.changePlace"></li>
-                </ul>
-                <div class="" data-bind="text: name"></div>
+                <div data-bind="if: showPlacesList">
+                    <h2>Places:</h2>
+                    <ul data-bind="foreach: filterPlaces">
+                        <li data-bind="text: name, click: $root.changePlace"></li>
+                    </ul>
+                    <div class="" data-bind="text: name"></div>
+                </div>
+                <div data-bind="if: showMarkersList">
+                    <h2>Markers:</h2>
+                    <div class="" text: markers>
             </div>
-            <div class="col-md-3" data-bind="if: showMarkersList">
-                <h2>Markers:</h2>
-                <div class="" text: markers>
 
                 </div>
                 <button type="button" data-bind="click: showPlacesList" value="back">Back</button>
-                <ul data-bind="foreach: markers">
+                <ul data-bind="foreach: filterMarkers">
                     <li data-bind="text: name"></li>
                 </ul>
                 <div class="" data-bind="text: name"></div>
-            </div>
-            <div class="col-md-9 map" id="map"></div>
+            </aside>
+            <main class="col-xs-9 map" id="map">
+
+            </main>
         </div>
     </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOuSETzz0sZHZm-x5LIEKX7KQlmb5c4Y&v=3&callback=initMap"></script>
