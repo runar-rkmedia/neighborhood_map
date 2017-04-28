@@ -1,11 +1,5 @@
 var map;
 
-function inditMap() {
-    // Create a new blank array for all the listing markers.
-    var markers = [];
-
-}
-
 // Create a new blank array for all the listing markers.
 var markers = [];
 
@@ -54,7 +48,14 @@ function initMap() {
     }
     // document.getElementById('show-listings').addEventListener('click', showListings);
     // document.getElementById('hide-listings').addEventListener('click', hideListings);
-    showListings();
+    // showListings();
+    var vm = ko.dataFor(document.body);
+    // console.log(vm);
+    // console.log(vm.google());
+    // console.log(window.google);
+
+    vm.google(!!window.google)
+    // console.log(vm.google());
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
