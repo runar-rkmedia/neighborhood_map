@@ -4,9 +4,9 @@
             <h1>Neighborhood Map</h1>
         </div>
         <div class="row">
-            <div class="col-md-3" data-bind="with: chosenPlaceData">
+            <div class="col-md-3">
                 <ul data-bind="foreach: places">
-                    <li data-bind="text: name"></li>
+                    <li data-bind="text: name, click: $root.changePlace"></li>
                 </ul>
                 <div class="" data-bind="text: name"></div>
             </div>
