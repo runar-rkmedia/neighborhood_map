@@ -4,14 +4,26 @@
             <h1>Neighborhood Map</h1>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <!-- Places -->
+            <div class="col-md-3" data-bind="if: showPlacesList">
+                <h2>Places:</h2>
                 <ul data-bind="foreach: places">
                     <li data-bind="text: name, click: $root.changePlace"></li>
                 </ul>
                 <div class="" data-bind="text: name"></div>
             </div>
-            <div class="col-md-9 map" id="map">asdfsd</div>
+            <div class="col-md-3" data-bind="if: showMarkersList">
+                <h2>Markers:</h2>
+                <div class="" text: markers>
 
+                </div>
+                <button type="button" data-bind="click: showPlacesList" value="back">Back</button>
+                <ul data-bind="foreach: markers">
+                    <li data-bind="text: name"></li>
+                </ul>
+                <div class="" data-bind="text: name"></div>
+            </div>
+            <div class="col-md-9 map" id="map"></div>
         </div>
     </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOuSETzz0sZHZm-x5LIEKX7KQlmb5c4Y&v=3&callback=initMap"></script>

@@ -32,6 +32,15 @@ markers = [
         'description': 'Fighting for eons',
         'latitude': 41.890695,
         'longitude': 12.492051,
-        'id': 1
+        'id': 1,
+        'place_id': 1
+    },
+    {
+        'name': 'test',
+        'description': 'test',
+        'latitude': 41.900695,
+        'longitude': 12.472051,
+        'id': 2,
+        'place_id': 1
     }
 ]
