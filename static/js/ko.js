@@ -16,7 +16,7 @@ function SidepanelView() {
             self.currentPlaceData(data.places[0]);
         }
     });
-
+    // Center the map on a location whenever currentPlaceData changes
     self.centerMap = ko.computed(function() {
         if (self.google() && self.currentPlaceData()) {
             var place = self.currentPlaceData();
@@ -27,28 +27,45 @@ function SidepanelView() {
             map.setZoom(place.zoom);
         }
     });
+    // Place markers on map whenever markers changes
     self.putmarkers = ko.computed(function() {
         if (self.google() && self.markers().length > 0) {
             console.log(self.markers().length);
             for (var i = 0; i < self.markers().length; i++) {
+                var largeInfowindow = new google.maps.InfoWindow();
                 var this_marker = self.markers()[i];
                 console.log(this_marker.name);
-                new google.maps.Marker({
+                var marker = new google.maps.Marker({
                     position: {
                         lat: this_marker.latitude,
                         lng: this_marker.longitude
                     },
                     map: map,
-                    title: 'Hello World!'
+                    title: this_marker.name,
+                    description: this_marker.description,
+                    animation: google.maps.Animation.DROP,
                 });
+
+                // Push the marker to our array of markers.
+                markers.push(marker);
+                // Create an onclick event to open an infowindow at each marker.
+                marker.addListener('click', function() {
+                    populateInfoWindow(this, largeInfowindow);
+                });
+                // showListings()
             }
         }
     });
+    // Change the current place to what a user selected
     self.changePlace = function(place) {
-        self.currentPlaceData(place);
-        self.showPlacesList(false);
+        if (self.currentPlaceData() !== place) {
+            self.currentPlaceData(place);
+        }
+        // self.showPlacesList(false);
     };
+    // Retrieve tha markers whenever the currentPlaceData changes. (caching?)
     self.retrieveMarkers = ko.computed(function() {
+        hideListings();
         if (self.currentPlaceData()) {
             $.get("/json/places/" + self.currentPlaceData().id, function(data) {
                 self.markers(data.markers);

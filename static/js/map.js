@@ -1,4 +1,5 @@
 var map;
+// var maxzoom = 13;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
@@ -20,42 +21,27 @@ function initMap() {
     }, ];
 
     // Constructor creates a new map - only center and zoom are required.
-    map.setCenter({lat: 41.875993,
-    lng: 12.3822245});
-    map.setZoom(11)
-
-    var largeInfowindow = new google.maps.InfoWindow();
-
-    // The following group uses the location array to create an array of markers on initialize.
-    for (var i = 0; i < locations.length; i++) {
-        // Get the position from the location array.
-        var position = locations[i].location;
-        var title = locations[i].title;
-        // Create a marker per location, and put into markers array.
-        var marker = new google.maps.Marker({
-            position: position,
-            title: title,
-            animation: google.maps.Animation.DROP,
-            id: i
-        });
-        // Push the marker to our array of markers.
-        markers.push(marker);
-        // Create an onclick event to open an infowindow at each marker.
-        marker.addListener('click', function() {
-            largeInfowindow.setContent(this.title + this.position);
-            largeInfowindow.open(map, this);
-        });
-    }
-    // document.getElementById('show-listings').addEventListener('click', showListings);
-    // document.getElementById('hide-listings').addEventListener('click', hideListings);
-    // showListings();
+    map.setCenter({
+        lat: 41.875993,
+        lng: 12.3822245
+    });
+    map.setZoom(11);
     var vm = ko.dataFor(document.body);
-    // console.log(vm);
-    // console.log(vm.google());
-    // console.log(window.google);
+    vm.google(!!window.google);
 
-    vm.google(!!window.google)
-    // console.log(vm.google());
+//     map.initialZoom = true;
+//
+//     google.maps.event.addListener(map, 'zoom_changed', function() {
+//     zoomChangeBoundsListener =
+//         google.maps.event.addListener(map, 'bounds_changed', function(event) {
+//             if (this.getZoom() > maxzoom && this.initialZoom === true) {
+//                 // Change max/min zoom here
+//                 // this.setZoom(maxzoom);
+//                 this.initialZoom = false;
+//             }
+//         google.maps.event.removeListener(zoomChangeBoundsListener);
+//     });
+// });
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -65,7 +51,7 @@ function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.setContent('<h4 class="marker-title">' + marker.title + '</h4><div class="marker-description">' + marker.description + '</div>');
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick', function() {
@@ -79,10 +65,13 @@ function showListings() {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
+        // markers[i].setMap(map);
         bounds.extend(markers[i].position);
     }
-    // map.fitBounds(bounds);
+    // Also extend the boundaries to the center of current place, so that we can see that too.
+    bounds.extend(map.getCenter());
+
+    map.fitBounds(bounds);
 }
 
 // This function will loop through the listings and hide them all.
