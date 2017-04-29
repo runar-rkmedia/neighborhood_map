@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}{% block body %}
-    <div class="container">
         <div class="row">
             <h1>Neighborhood Map</h1>
         </div>
         <div class="row">
-            <div class="errormsg" data-bind="text: errormsg"></div>
+            <div class="errormsg text-danger" data-bind="text: errormsg"></div>
             <!-- Sidepanel -->
             <aside class="col-sm-3 sidepanel">
                 <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
@@ -30,17 +29,30 @@
                     </ul>
                     <div class="" data-bind="text: name"></div>
                 </div>
+                <!-- Restaurants -->
+                <div class="restaurants" data-bind="if: businesses().length">
+                    <h3>Restaurants</h3>
+                    <ul data-bind="foreach: businesses">
+                        <li class="restaurant">
+                            <div class="item-name" data-bind="text: name, click: $root.expandItem"></div>
+                            <div class="item-rating hidden expandable" data-bind="text: rating"></div>
+                            <div class="item-reviews hidden expandable" data-bind="text: review_count"></div>
+                            <div>
+                                <a class="hidden expandable" data-bind="attr: { 'href': $data.url }">View on yelp</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </aside>
             <!-- Main-window -->
             <main class="col-xs-9">
                 <!-- ko with: currentPlaceData -->
                 <h2 data-bind="text: name"></h2>
                 <div data-bind="text: description"></div>
+                <button type="button" class="btn btn-primary" data-bind="click: $root.getYelp">Find restaurants here!</button>
                 <!-- /ko -->
             <!-- Map-div -->
             <div class="map" id="map">Map will load here. If this is taking too long, Google Maps might be blocked from reaching you.</div>
             </main>
-        </div>
-    </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>
 {% endblock %}

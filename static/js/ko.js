@@ -14,6 +14,29 @@ function SidepanelView() {
     self.markers = ko.observableArray();
     self.userFilter = ko.observable();
     self.errormsg = ko.observable();
+    self.businesses = ko.observableArray(
+        [{
+                name: 'A restaurant',
+                rating: 4.5,
+                review_count: 320,
+                url: 'sdf',
+                coordinates: {
+                    latitude: 41.7985825977264,
+                    longitude: 12.476845091052
+                }
+            },
+            {
+                name: 'Another restaurant',
+                rating: 3.2,
+                review_count: 3233,
+                url: 'sdfsadfa',
+                coordinates: {
+                    latitude: 41.8985825977264,
+                    longitude: 12.476845091052
+                }
+            }
+        ]
+    );
 
     // Filter places on search
     self.filterPlaces = ko.computed(function() {
@@ -66,18 +89,35 @@ function SidepanelView() {
             }
         }
     });
+    // TODO; Add default error-handling
     $.get("/json/")
-    .done(function(data) {
-        self.placesData(data.places);
-        self.markersData(data.markers);
-        self.showPlacesList(true);
-        if (!self.currentPlaceData()) {
-            self.currentPlaceData(data.places[0]);
+        .done(function(data) {
+            self.placesData(data.places);
+            self.markersData(data.markers);
+            self.showPlacesList(true);
+            if (!self.currentPlaceData()) {
+                self.currentPlaceData(data.places[0]);
+            }
+        })
+        .fail(function(e) {
+            self.errormsg('Could not retrieve data: Error ' + e.status);
+        });
+
+    self.getYelp = function() {
+        var p = self.currentPlaceData();
+        if (p) {
+            $.post("/json/yelp/", {
+                    'latitude': p.latitude,
+                    'longitude': p.longitude,
+                    'term': '',
+                    'pricing_filter': '',
+                })
+                .done(function(data) {
+                    self.businesses(data.businesses)
+                    console.log(data.businesses);
+                });
         }
-    })
-    .fail(function (e) {
-        self.errormsg('Could not retrieve data: Error ' + e.status);
-    });
+    };
     // Center the map on a location whenever currentPlaceData changes
     self.centerMap = ko.computed(function() {
         if (self.google() && self.currentPlaceData()) {
@@ -123,11 +163,14 @@ function SidepanelView() {
         }
         // self.showPlacesList(false);
     };
+    self.expandItem = function(item, event) {
+        var targets = $(event.target).parent().find('.expandable');
+        targets.toggleClass('hidden');
+    };
     self.popInfoWindow = function(markerData) {
         if (this.place_id != self.currentPlaceData().id) {
             for (var i = 0; i < self.placesData().length; i++) {
                 thisPlace = self.placesData()[i];
-                console.log(thisPlace);
                 if (thisPlace.id == this.place_id) {
                     self.changePlace(thisPlace);
                 }
