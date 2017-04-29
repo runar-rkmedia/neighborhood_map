@@ -2,8 +2,10 @@
 
 import sys
 from config import configure_app
+import requests
 from flask import (
     Flask,
+    request,
     jsonify,
     render_template,
 )
@@ -21,6 +23,38 @@ def view_map():
     return render_template(
         'map.html',
     )
+
+
+@app.route('/json/yelp/', methods=['POST'])
+def json_yelp():
+    """Return a json of a yelp search."""
+
+    app_id = app.config['YELP_CLIENT_ID']
+    app_secret = app.config['YELP_CLIENT_SECRET']
+    latitude = request.form['latitude']
+    longitude = request.form['longitude']
+    term = request.form['term']
+    pricing_filter = request.form['pricing_filter']
+    if latitude and longitude:
+        data = {'grant_type': 'client_credentials',
+                'client_id': app_id,
+                'client_secret': app_secret}
+        token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+        access_token = token.json()['access_token']
+        url = 'https://api.yelp.com/v3/businesses/search'
+        headers = {'Authorization': 'bearer %s' % access_token}
+        params = {
+            'latitude': latitude,
+            'longitude': longitude,
+            'term': term,
+            'pricing_filter': pricing_filter,
+            'sort_by': 'rating'
+        }
+
+        resp = requests.get(url=url, params=params, headers=headers)
+
+        print(type(resp))
+        return app.response_class(resp, content_type='application/json')
 
 
 @app.route('/json/places/', methods=['GET'])
