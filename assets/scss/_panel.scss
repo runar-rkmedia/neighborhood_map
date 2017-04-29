@@ -1,11 +1,33 @@
-body,
-html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+
 
 .map {
     height: 100%;
     min-height: 600px;
+    border: 3px solid $primary-dark-color;
+}
+
+
+.closed {
+    display: none !important;
+}
+
+
+.item-rating{
+    display: inline;
+    font-weight: bold;
+    &:before{
+        content: 'Rating: '
+    }
+    &:after{
+        content: ' out of 5'
+    }
+}
+.item-reviews{
+    display: inline;
+    &:before{
+        content: '('
+    }
+    &:after{
+        content: ')'
+    }
 }

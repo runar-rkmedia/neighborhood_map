@@ -1,5 +1,6 @@
 $primary-color: #266cac;
 $primary-dark-color: #042849;
+$primary-light-color: #cbe0ff;
 $primary-selected-color: #005aac;
 $light-text-color: white;
 $grey-text-color: #8fa8bd;
@@ -9,4 +10,16 @@ $secondary-color: #26ac95;
 $secondary-dark-color: #042849;
 $secondary-selected-color: #1f7d6d;
 $danger-color: #F9BF3B;
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    border: 3px solid $primary-dark-color;
+    background-color: $primary-light-color;
+    padding: 1ex 2em;
+}
 @import "panel"

@@ -112,7 +112,9 @@ if __name__ == "__main__":
             db.session.commit()
             print("Database tables created")
     else:
-        if app.debug:
-            # setup scss-folders
-            Scss(app, static_dir='static/css/', asset_dir='assets/scss/')
-            app.run()
+        print(app.config['DEBUG'])
+        app.run()
+
+if app.config['DEBUG'] is True:
+    # setup scss-folders
+    Scss(app, static_dir='static/css/', asset_dir='assets/scss/')
