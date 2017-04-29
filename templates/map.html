@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}{% block body %}
-        <div class="row">
-            <h1>Neighborhood Map</h1>
-        </div>
-        <div class="row">
-            <div class="errormsg text-danger" data-bind="text: errormsg"></div>
-            <!-- Sidepanel -->
-            <aside class="col-sm-3 sidepanel">
-                <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
-                <div class="" data-bind="text: userFilter">
-
-                </div>
-            <!-- Places-list -->
-                <div data-bind="if: showPlacesList">
-                    <h2>Places:</h2>
+{% extends 'base.html' %}
+{% block body %}
+    <div class="row">
+        <h1>Neighborhood Map</h1>
+    </div>
+    <div class="row">
+        <div class="errormsg text-danger" data-bind="text: errormsg"></div>
+        <!-- Sidepanel -->
+        <aside class="col-sm-4 sidepanel">
+            <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
+            <div class="" data-bind="text: userFilter"></div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#places" aria-controls="places" role="tab" data-toggle="tab">Places</a>
+                </li>
+                <li role="presentation">
+                    <a href="#markers" aria-controls="markers" role="tab" data-toggle="tab">Markers</a>
+                </li>
+                <li role="presentation">
+                    <a href="#restaurants" aria-controls="restaurants" role="tab" data-toggle="tab">Restaurants</a>
+                </li>
+            </ul>
+            <div class="tab-content clearfix">
+                <!-- Places-list -->
+                <div id="places" role="tabpanel" class="tab-pane active" data-bind="if: showPlacesList">
+                    <h3>Places:</h3>
                     <ul data-bind="foreach: filterPlaces">
                         <li data-bind="text: name, click: $root.changePlace"></li>
                     </ul>
                     <div class="" data-bind="text: name"></div>
                 </div>
                 <!-- Markers-list -->
-                <div data-bind="if: showMarkersList">
+                <div id="markers" role="tabpanel" class="tab-pane" data-bind="if: showMarkersList">
                     <h3>Markers:</h3>
                     <div class="filterdesc" data-bind="text: filterdesc"></div>
 
@@ -30,7 +42,7 @@
                     <div class="" data-bind="text: name"></div>
                 </div>
                 <!-- Restaurants -->
-                <div class="restaurants" data-bind="if: businesses().length">
+                <div id="restaurants" role="tabpanel" class="restaurants tab-pane" data-bind="if: businesses().length">
                     <h3>Restaurants</h3>
                     <ul data-bind="foreach: businesses">
                         <li class="restaurant">
@@ -43,16 +55,17 @@
                         </li>
                     </ul>
                 </div>
-            </aside>
-            <!-- Main-window -->
-            <main class="col-xs-9">
-                <!-- ko with: currentPlaceData -->
-                <h2 data-bind="text: name"></h2>
-                <div data-bind="text: description"></div>
-                <button type="button" class="btn btn-primary" data-bind="click: $root.getYelp">Find restaurants here!</button>
-                <!-- /ko -->
+            </div>
+        </aside>
+        <!-- Main-window -->
+        <main class="col-xs-9">
+            <!-- ko with: currentPlaceData -->
+            <h2 data-bind="text: name"></h2>
+            <div data-bind="text: description"></div>
+            <button type="button" class="btn btn-primary" data-bind="click: $root.getYelp">Find restaurants here!</button>
+            <!-- /ko -->
             <!-- Map-div -->
             <div class="map" id="map">Map will load here. If this is taking too long, Google Maps might be blocked from reaching you.</div>
-            </main>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>
-{% endblock %}
+        </main>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>
+    {% endblock %}
