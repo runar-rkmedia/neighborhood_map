@@ -42,5 +42,13 @@ markers = [
         'longitude': 12.472051,
         'id': 2,
         'place_id': 1
+    },
+    {
+        'name': 'test2',
+        'description': 'test2',
+        'latitude': 41.920695,
+        'longitude': 12.472051,
+        'id': 3,
+        'place_id': 2
     }
 ]

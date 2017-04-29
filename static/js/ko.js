@@ -1,3 +1,5 @@
+var largeInfowindow;
+
 function SidepanelView() {
     // Data
     var self = this;
@@ -11,35 +13,51 @@ function SidepanelView() {
     self.markersData = ko.observableArray();
     self.markers = ko.observableArray();
     self.userFilter = ko.observable();
+    self.errormsg = ko.observable();
 
     // Filter places on search
-    self.filterPlaces = ko.computed(function () {
+    self.filterPlaces = ko.computed(function() {
         if (!self.userFilter()) {
             return self.placesData();
         } else {
-            return ko.utils.arrayFilter(self.placesData(), function (place) {
-                return place.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) !=-1;
+            return ko.utils.arrayFilter(self.placesData(), function(place) {
+                return place.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) != -1;
             });
         }
     });
     // Filter markers on search
-    self.filterMarkers = ko.computed(function () {
+    self.filterMarkers = ko.computed(function() {
         if (!self.userFilter()) {
-            return self.markersData();
+            if (self.currentPlaceData()) {
+                return ko.utils.arrayFilter(self.markersData(), function(marker) {
+                    return marker.place_id == self.currentPlaceData().id;
+                });
+            }
+            return self.markers();
         } else {
-            return ko.utils.arrayFilter(self.markersData(), function (marker) {
-                return marker.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) !=-1;
+            return ko.utils.arrayFilter(self.markersData(), function(marker) {
+                return marker.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) != -1;
             });
         }
     });
+    // Filter-text for marker
+    self.filterdesc = ko.computed(function() {
+        if (self.currentPlaceData()) {
+            if (!self.userFilter()) {
+                return 'Listing all markers close to ' + self.currentPlaceData().name;
+            } else {
+                return 'Listing all markers matching the name "' + self.userFilter() + '"';
+            }
+        }
+    });
     // Filter the visibility of markers on screen
-    self.visibilityMarkers = ko.computed(function () {
-        // console.log(self.filterMarkers());
+    self.visibilityMarkers = ko.computed(function() {
         if (self.filterMarkers() && self.google() && markers.length > 0) {
             for (var i = 0; i < markers.length; i++) {
                 this_mark = markers[i];
-                var result = $.grep(self.filterMarkers(), function(e){
-                     return e.id == this_mark.id; });
+                var result = $.grep(self.filterMarkers(), function(e) { // jshint ignore:line
+                    return e.id == this_mark.id;
+                });
                 if (result.length > 0) {
                     this_mark.setVisible(true);
                 } else {
@@ -48,12 +66,17 @@ function SidepanelView() {
             }
         }
     });
-    $.get("/json/places/", function(data) {
+    $.get("/json/")
+    .done(function(data) {
         self.placesData(data.places);
+        self.markersData(data.markers);
         self.showPlacesList(true);
         if (!self.currentPlaceData()) {
             self.currentPlaceData(data.places[0]);
         }
+    })
+    .fail(function (e) {
+        self.errormsg('Could not retrieve data: Error ' + e.status);
     });
     // Center the map on a location whenever currentPlaceData changes
     self.centerMap = ko.computed(function() {
@@ -68,10 +91,9 @@ function SidepanelView() {
     });
     // Place markers on map whenever markers changes
     self.putmarkers = ko.computed(function() {
-        if (self.google() &&  self.markersData().length > 0) {
+        if (self.google() && self.markersData().length > 0) {
             for (var i = 0; i < self.markersData().length; i++) {
                 var this_marker = self.markersData()[i];
-                var largeInfowindow = new google.maps.InfoWindow();
                 var marker = new google.maps.Marker({
                     position: {
                         lat: this_marker.latitude,
@@ -87,7 +109,7 @@ function SidepanelView() {
                 // Push the marker to our array of markers.
                 markers.push(marker);
                 // Create an onclick event to open an infowindow at each marker.
-                marker.addListener('click', function() {
+                marker.addListener('click', function() { // jshint ignore:line
                     populateInfoWindow(this, largeInfowindow);
                 });
                 // showListings()
@@ -101,15 +123,23 @@ function SidepanelView() {
         }
         // self.showPlacesList(false);
     };
-    // Retrieve tha markers whenever the currentPlaceData changes. (caching?)
-    self.retrieveMarkers = ko.computed(function() {
-        if (self.currentPlaceData()) {
-            $.get("/json/places/" + self.currentPlaceData().id, function(data) {
-                self.markersData(data.markers);
-                // console.log(data)
-            });
+    self.popInfoWindow = function(markerData) {
+        if (this.place_id != self.currentPlaceData().id) {
+            for (var i = 0; i < self.placesData().length; i++) {
+                thisPlace = self.placesData()[i];
+                console.log(thisPlace);
+                if (thisPlace.id == this.place_id) {
+                    self.changePlace(thisPlace);
+                }
+            }
         }
-    });
+        for (var j = 0; j < markers.length; j++) {
+            this_map_marker = markers[j];
+            if (this_map_marker.id === markerData.id) {
+                populateInfoWindow(this_map_marker, largeInfowindow);
+            }
+        }
+    };
 }
 
 ko.applyBindings(new SidepanelView());

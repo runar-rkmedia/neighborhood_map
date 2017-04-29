@@ -26,6 +26,7 @@ function initMap() {
         lng: 12.3822245
     });
     map.setZoom(11);
+    largeInfowindow = new google.maps.InfoWindow();
     var vm = ko.dataFor(document.body);
     vm.google(!!window.google);
 
@@ -57,6 +58,10 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
         });
+    } else {
+        // Close if user pressed marker again
+        infowindow.close();
+        infowindow.marker = null;
     }
 }
 

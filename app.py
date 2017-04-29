@@ -30,6 +30,16 @@ def json_places():
     return jsonify(places=[i.serialize for i in places])
 
 
+@app.route('/json/', methods=['GET'])
+def json_places_and_markers():
+    """Return a json of all places, and all markers"""
+    places = Place.query.filter_by(archived=False).all()
+    markers = Marker.query.filter_by(archived=False).all()
+    places_json = jsonify(places=[i.serialize for i in places],
+                          markers=[i.serialize for i in markers])
+    return places_json
+
+
 @app.route('/json/places/<int:place_id>/', methods=[
     'GET'])
 def json_markers(place_id):

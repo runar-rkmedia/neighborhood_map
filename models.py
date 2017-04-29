@@ -149,12 +149,12 @@ class Marker(db.Model):
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
-        place = Place.query.filter_by(
-            id=self.place_id).first()
-        if place:
-            place_name = place.name
-        else:
-            place_name = 'noname'
+        # place = Place.query.filter_by(
+        #     id=self.place_id).first()
+        # if place:
+        #     place_name = place.name
+        # else:
+        #     place_name = 'noname'
         return {
             'id': self.id,
             'marker_type': self.marker_type,
@@ -162,5 +162,5 @@ class Marker(db.Model):
             'description': self.description,
             'longitude': self.longitude,
             'latitude': self.latitude,
-            'place_name': place_name
+            'place_id': self.place_id
         }
