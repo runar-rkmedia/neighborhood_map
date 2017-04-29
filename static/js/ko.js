@@ -32,6 +32,22 @@ function SidepanelView() {
             });
         }
     });
+    // Filter the visibility of markers on screen
+    self.visibilityMarkers = ko.computed(function () {
+        // console.log(self.filterMarkers());
+        if (self.filterMarkers() && self.google() && markers.length > 0) {
+            for (var i = 0; i < markers.length; i++) {
+                this_mark = markers[i];
+                var result = $.grep(self.filterMarkers(), function(e){
+                     return e.id == this_mark.id; });
+                if (result.length > 0) {
+                    this_mark.setVisible(true);
+                } else {
+                    this_mark.setVisible(false);
+                }
+            }
+        }
+    });
     $.get("/json/places/", function(data) {
         self.placesData(data.places);
         self.showPlacesList(true);
@@ -52,12 +68,10 @@ function SidepanelView() {
     });
     // Place markers on map whenever markers changes
     self.putmarkers = ko.computed(function() {
-        // hideListings();
-        if (self.google() && self.filterMarkers().length > 0) {
-            for (var i = 0; i < self.filterMarkers().length; i++) {
-                var this_marker = self.filterMarkers()[i];
+        if (self.google() &&  self.markersData().length > 0) {
+            for (var i = 0; i < self.markersData().length; i++) {
+                var this_marker = self.markersData()[i];
                 var largeInfowindow = new google.maps.InfoWindow();
-                console.log(self.filterMarkers());
                 var marker = new google.maps.Marker({
                     position: {
                         lat: this_marker.latitude,
@@ -92,7 +106,7 @@ function SidepanelView() {
         if (self.currentPlaceData()) {
             $.get("/json/places/" + self.currentPlaceData().id, function(data) {
                 self.markersData(data.markers);
-                // console.log(data);
+                // console.log(data)
             });
         }
     });
