@@ -11,6 +11,7 @@ function SidepanelView() {
     self.showMarkersList = ko.observable(true);
     self.placesData = ko.observableArray();
     self.markersData = ko.observableArray();
+    self.currentMarkers = ko.observableArray();
     self.markers = ko.observableArray();
     self.userFilter = ko.observable();
     self.errormsg = ko.observable();
@@ -100,6 +101,7 @@ function SidepanelView() {
         .done(function(data) {
             self.placesData(data.places);
             self.markersData(data.markers);
+            self.currentMarkers(data.markers);
             self.showPlacesList(true);
             if (!self.currentPlaceData()) {
                 self.currentPlaceData(data.places[0]);
@@ -128,6 +130,7 @@ function SidepanelView() {
                 .done(function(data) {
                     self.loading(false);
                     self.businesses(data.businesses);
+                    self.currentMarkers(data.businesses);
                 });
         }
     };
@@ -144,20 +147,17 @@ function SidepanelView() {
     });
     // Place markers on map whenever markers changes
     self.putmarkers = ko.computed(function() {
-        if (self.google() && self.markersData().length > 0) {
-            for (var i = 0; i < self.markersData().length; i++) {
-                var this_marker = self.markersData()[i];
-                var marker = new google.maps.Marker({
-                    position: {
-                        lat: this_marker.coordinates.latitude,
-                        lng: this_marker.coordinates.longitude
-                    },
-                    map: map,
-                    title: this_marker.name,
-                    description: this_marker.description,
-                    animation: google.maps.Animation.DROP,
-                    id: this_marker.id
-                });
+        var m = self.currentMarkers();
+        if (self.google() && m.length > 0) {
+            for (var i = 0; i < m.length; i++) {
+                var this_marker = m[i];
+                this_marker.position = {
+                    lat: this_marker.coordinates.latitude,
+                    lng: this_marker.coordinates.longitude
+                };
+                this_marker.map = map;
+                this_marker.animation = google.maps.Animation.DROP;
+                var marker = new google.maps.Marker(this_marker);
 
                 // Push the marker to our array of markers.
                 markers.push(marker);

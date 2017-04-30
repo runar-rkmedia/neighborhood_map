@@ -27,7 +27,18 @@ function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        infowindow.setContent('<h4 class="marker-title">' + marker.title + '</h4><div class="marker-description">' + marker.description + '</div>');
+        console.log(marker);
+        content = '<h4 class="marker-title">' + marker.name + '</h4>';
+        if (marker.description) {
+            content += '<div class="marker-description">' + marker.description + '</div>';
+        }
+        if (marker.location) {
+            content += '<div class="marker-address">' + marker.location.address1+ '<br>' + marker.location.address2 + '<br>' + marker.location.address3 + '</div>';
+        }
+        // if (marker.image_url) {
+        //     content += '<img class="marker-image img-responsive" src="' + marker.image_url + '" alt="' + marker.name + '">';
+        // }
+        infowindow.setContent(content);
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick', function() {
