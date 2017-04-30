@@ -20,6 +20,7 @@ function SidepanelView() {
                 rating: 4.5,
                 review_count: 320,
                 url: 'sdf',
+                image_url: 'http://placehold.it/350x150',
                 coordinates: {
                     latitude: 41.7985825977264,
                     longitude: 12.476845091052
@@ -30,6 +31,7 @@ function SidepanelView() {
                 rating: 3.2,
                 review_count: 3233,
                 url: 'sdfsadfa',
+                image_url: 'http://placehold.it/350x150',
                 coordinates: {
                     latitude: 41.8985825977264,
                     longitude: 12.476845091052
@@ -189,3 +191,11 @@ function SidepanelView() {
 }
 
 ko.applyBindings(new SidepanelView());
+// When expanding a restaurant-item in the menu, only then do we load the image to that restaurant.
+$('div.panel-group').on('show.bs.collapse', function (event) {
+    target = $(event.target);
+    img = target.find('.dontload');
+    img.attr('src',img.attr('url'));
+    img.removeClass('hidden');
+    img.removeClass('dontload');
+});
