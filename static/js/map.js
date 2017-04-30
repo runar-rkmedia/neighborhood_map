@@ -25,9 +25,10 @@ function initMap() {
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
+    c = $('#collapse' + marker.id);
+    c.collapse('show');
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        console.log(marker);
         content = '<h4 class="marker-title">' + marker.name + '</h4>';
         if (marker.description) {
             content += '<div class="marker-description">' + marker.description + '</div>';
