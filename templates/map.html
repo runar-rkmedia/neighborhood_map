@@ -18,7 +18,7 @@
                 <li role="presentation">
                     <a href="#markers" aria-controls="markers" role="tab" data-toggle="tab">Markers</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" id="nav-restaurants">
                     <a href="#restaurants" aria-controls="restaurants" role="tab" data-toggle="tab">Restaurants</a>
                 </li>
             </ul>
@@ -26,6 +26,9 @@
                 <!-- Places-list -->
                 <div id="places" role="tabpanel" class="tab-pane fade in active" data-bind="if: showPlacesList">
                     <h3>Places:</h3>
+                    {% with text="Retrieving places"  %}
+                        {% include 'includes/loadbutton.html' %}
+                    {% endwith %}
                     <ul data-bind="foreach: filterPlaces">
                         <li data-bind="text: name, click: $root.changePlace"></li>
                     </ul>
@@ -34,6 +37,9 @@
                 <!-- Markers-list -->
                 <div id="markers" role="tabpanel" class="tab-pane fade" data-bind="if: showMarkersList">
                     <h3>Markers:</h3>
+                    {% with text="Retrieving markers"  %}
+                        {% include 'includes/loadbutton.html' %}
+                    {% endwith %}
                     <div class="filterdesc" data-bind="text: filterdesc"></div>
 
                     <ul data-bind="foreach: filterMarkers">
@@ -44,6 +50,9 @@
                 <!-- Restaurants -->
                 <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade" data-bind="if: businesses().length">
                     <h3>Restaurants</h3>
+                    {% with text="Retrieving restaurants"  %}
+                        {% include 'includes/loadbutton.html' %}
+                    {% endwith %}
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" data-bind="foreach: businesses">
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" data-bind="attr: {id: 'heading' + $index()}">
