@@ -22,10 +22,11 @@ html {
     background-color: $primary-light-color;
     padding: 1ex 2em;
 }
-.glyphicon {
-    margin-right: 0.4em;
+.rating .glyphicon{
+    margin-right: -.3em;
 }
 .glyphicon-refresh-animate {
+    margin-right: 0.4em;
     -animation: spin 1.4s infinite ease;
     -webkit-animation: spin2 1.4s infinite ease-out;
 }
@@ -39,5 +40,8 @@ html {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(540deg);}
 
+}
+.gray-text{
+    opacity: 0.8;
 }
 @import "panel"

@@ -15,7 +15,7 @@
 </ul>
 <div class="tab-content clearfix">
     <!-- Places-list -->
-    <div id="places" role="tabpanel" class="tab-pane fade in active" data-bind="if: showPlacesList">
+    <div id="places" role="tabpanel" class="tab-pane fade in" data-bind="if: showPlacesList">
         <h3>Places:</h3>
         {% with text = "Retrieving places" %}
         {% include 'includes/loadbutton.html' %}
@@ -39,16 +39,52 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Restaurants -->
-    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade" data-bind="if: businesses().length">
+    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in active" data-bind="if: businesses().length">
         <h3>Restaurants</h3>
         {% with text = "Retrieving restaurants" %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
+    <form data-bind="submit: getYelp">
+        <label for="restaurantInputTerm">Search term:</label>
+        <div class="input-group">
+            <input type="search" class="form-control" data-bind="value: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+            </span>
+        </div>
+        <p class="gray-text">Will search for places nearby the center of the map.</p>
+            <div class="form-group">
+                <label>Sorted by:</label><br>
+                <label class="radio-inline">
+                    <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelp_sorting">
+                    Best Match
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelp_sorting">
+                    Rating
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelp_sorting">
+                    Number of reviews
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelp_sorting">
+                    Distance
+                </label>
+            </div>
+        </form>
+        {% with text = "Retrieving restaurants" %}
+        {% include 'includes/loadbutton.html' %}
+        {% endwith %}
+        <hr data-bind="visible: businesses().length">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" data-bind="foreach: businesses">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" data-bind="attr: {id: 'heading' + $index()}">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-bind="text: name, attr: {href: '#collapse' + $index()}"></a>
+                        <span class="rating pull-right">
+                            {% include 'includes/rating.html' %}
+                        </span>
                     </h4>
                 </div>
                 <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: {id: 'collapse' + $index(), 'aria-labelledby': 'collapse' + $index()}">
@@ -59,7 +95,7 @@
                         <div>
                             <a data-bind="attr: { 'href': $data.url }">View on Yelp</a>
                         </div>
-                        <!-- image_url -->
+
                     </div>
                 </div>
             </div>
