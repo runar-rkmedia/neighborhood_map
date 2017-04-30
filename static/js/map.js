@@ -36,6 +36,6 @@ function populateInfoWindow(marker, infowindow) {
     } else {
         // Close if user pressed marker again
         infowindow.close();
-        infowindow.marker = null;
+        /*infowindow.marker = null;expo   */
     }
 }
