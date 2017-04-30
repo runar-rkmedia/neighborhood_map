@@ -39,16 +39,17 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Restaurants -->
-    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in active" data-bind="if: businesses().length">
-        <h3>Restaurants</h3>
-        <form data-bind="submit: getYelp">
-            <label for="restaurantInputTerm">Search term:</label>
-            <div class="input-group">
-                <input type="search" class="form-control" data-bind="value: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
-                <span class="input-group-btn">
-        <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
-      </span>
-            </div>
+    <!-- <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in active"> -->
+    <h3>Restaurants</h3>
+    <form data-bind="submit: getYelp">
+        <label for="restaurantInputTerm">Search term:</label>
+        <div class="input-group">
+            <input type="search" class="form-control" data-bind="value: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+            </span>
+        </div>
+        <p class="gray-text">Will search for places nearby the center of the map.<p/>
             <div class="form-group">
                 <label>Sorted by:</label><br>
                 <label class="radio-inline">
@@ -72,11 +73,15 @@
         {% with text = "Retrieving restaurants" %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
+        <hr data-bind="visible: businesses().length">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" data-bind="foreach: businesses">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" data-bind="attr: {id: 'heading' + $index()}">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-bind="text: name, attr: {href: '#collapse' + $index()}"></a>
+                        <span class="rating pull-right">
+                            {% include 'includes/rating.html' %}
+                        </span>
                     </h4>
                 </div>
                 <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: {id: 'collapse' + $index(), 'aria-labelledby': 'collapse' + $index()}">

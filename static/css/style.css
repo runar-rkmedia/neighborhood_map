@@ -8,10 +8,11 @@ body, html {
     background-color: #cbe0ff;
     padding: 1ex 2em; }
 
-    .glyphicon {
-      margin-right: 0.4em; }
+    .rating .glyphicon {
+      margin-right: -0.3em; }
 
       .glyphicon-refresh-animate {
+        margin-right: 0.4em;
         -animation: spin 1.4s infinite ease;
         -webkit-animation: spin2 1.4s infinite ease-out; }
 
@@ -29,21 +30,24 @@ body, html {
       transform: scale(1) rotate(540deg);   }
 }
 
-.map {
-  height: 100%;
-  min-height: 600px;
-  border: 3px solid #042849; }
+.gray-text {
+  opacity: 0.8; }
 
-  .closed {
-    display: none !important; }
+  .map {
+    height: 100%;
+    min-height: 600px;
+    border: 3px solid #042849; }
 
-    .item-rating {
-      display: inline;
-      font-weight: bold; }
-      .item-rating:before {
-        content: 'Rating: '; }
-        .item-rating:after {
-          content: ' out of 5'; }
+    .closed {
+      display: none !important; }
+
+      .item-rating {
+        display: inline;
+        font-weight: bold; }
+        .item-rating:before {
+          content: 'Rating: '; }
+          .item-rating:after {
+            content: ' out of 5'; }
 
 .item-reviews {
   display: inline; }
@@ -62,3 +66,25 @@ body, html {
 
     .panel-group {
       color: #00051c; }
+
+      .review-count {
+        min-width: 3em;
+        width: 3em;
+        display: inline-block;
+        text-align: right; }
+
+        .glyphicon-star.half {
+          position: relative; }
+          .glyphicon-star.half:before {
+            position: relative;
+            z-index: 9;
+            width: 47%;
+            display: block;
+            overflow: hidden; }
+            .glyphicon-star.half:after {
+              content: '';
+              position: absolute;
+              z-index: 8;
+              color: #bdc3c7;
+              top: 0;
+              left: 0; }
