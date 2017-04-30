@@ -168,6 +168,8 @@ function SidepanelView() {
         targets.toggleClass('hidden');
     };
     self.popInfoWindow = function(markerData) {
+        // When clicking an item in the menu that is on a different location,
+        // jump to that location
         if (this.place_id != self.currentPlaceData().id) {
             for (var i = 0; i < self.placesData().length; i++) {
                 thisPlace = self.placesData()[i];
@@ -176,6 +178,7 @@ function SidepanelView() {
                 }
             }
         }
+        // Open the correct infowindow when click on marker in menu
         for (var j = 0; j < markers.length; j++) {
             this_map_marker = markers[j];
             if (this_map_marker.id === markerData.id) {
