@@ -80,8 +80,10 @@ class Place(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'longitude': self.longitude,
-            'latitude': self.latitude,
+            'coordinates': {
+                'longitude': self.longitude,
+                'latitude': self.latitude,
+            },
             'zoom': self.zoom
         }
 
@@ -160,7 +162,10 @@ class Marker(db.Model):
             'marker_type': self.marker_type,
             'name': self.name,
             'description': self.description,
-            'longitude': self.longitude,
+            'coordinates': {
+                'longitude': self.longitude,
+                'latitude': self.latitude,
+            },
             'latitude': self.latitude,
             'place_id': self.place_id
         }
