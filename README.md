@@ -15,7 +15,11 @@ And to start the server in debug mode:
 python app.py
 ```
 
-
+# Features:
+- Loads different locations from a database, which can be switched between.
+- Retrieves restaurants from Yelp from that area.
+- Images from yelp are only loaded when viewed, to save data-traffic for users, and Yelp-servers.
+- Custom markers loaded from server.
 
 # Notes
 - SAP (Knockout)

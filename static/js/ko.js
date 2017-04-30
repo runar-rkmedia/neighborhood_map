@@ -105,6 +105,7 @@ function SidepanelView() {
             self.errormsg('Could not retrieve data: Error ' + e.status);
         });
 
+    // Retrieve restaurants from yelp
     self.getYelp = function() {
         var p = self.currentPlaceData();
         if (p) {
@@ -115,7 +116,7 @@ function SidepanelView() {
                     'pricing_filter': '',
                 })
                 .done(function(data) {
-                    self.businesses(data.businesses)
+                    self.businesses(data.businesses);
                     console.log(data.businesses);
                 });
         }
