@@ -15,7 +15,7 @@
 </ul>
 <div class="tab-content clearfix">
     <!-- Places-list -->
-    <div id="places" role="tabpanel" class="tab-pane fade in active" data-bind="if: showPlacesList">
+    <div id="places" role="tabpanel" class="tab-pane fade in" data-bind="if: showPlacesList">
         <h3>Places:</h3>
         {% with text = "Retrieving places" %}
         {% include 'includes/loadbutton.html' %}
@@ -39,8 +39,36 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Restaurants -->
-    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade" data-bind="if: businesses().length">
+    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in active" data-bind="if: businesses().length">
         <h3>Restaurants</h3>
+        <form data-bind="submit: getYelp">
+            <label for="restaurantInputTerm">Search term:</label>
+            <div class="input-group">
+                <input type="search" class="form-control" data-bind="value: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
+                <span class="input-group-btn">
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+      </span>
+            </div>
+            <div class="form-group">
+                <label>Pricerange:</label><br>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="1" data-bind="checked: yelp_pricerange">
+                    below $10
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="2" data-bind="checked: yelp_pricerange">
+                    $10-$99
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="3" data-bind="checked: yelp_pricerange">
+                    $100-$999
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox4" value="4" data-bind="checked: yelp_pricerange">
+                    $1000+
+                </label>
+            </div>
+        </form>
         {% with text = "Retrieving restaurants" %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
@@ -59,7 +87,6 @@
                         <div>
                             <a data-bind="attr: { 'href': $data.url }">View on Yelp</a>
                         </div>
-                        <!-- image_url -->
                     </div>
                 </div>
             </div>

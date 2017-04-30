@@ -35,6 +35,7 @@ def json_yelp():
     longitude = request.form['longitude']
     term = request.form['term']
     pricing_filter = request.form['pricing_filter']
+    print(pricing_filter)
     if latitude and longitude:
         data = {'grant_type': 'client_credentials',
                 'client_id': app_id,
@@ -53,7 +54,6 @@ def json_yelp():
 
         resp = requests.get(url=url, params=params, headers=headers)
 
-        print(type(resp))
         return app.response_class(resp, content_type='application/json')
 
 
