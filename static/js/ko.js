@@ -136,8 +136,8 @@ function SidepanelView() {
         if (self.google() && self.currentPlaceData()) {
             var place = self.currentPlaceData();
             map.setCenter({
-                lat: place.latitude,
-                lng: place.longitude
+                lat: place.coordinates.latitude,
+                lng: place.coordinates.longitude
             });
             map.setZoom(place.zoom);
         }
@@ -149,8 +149,8 @@ function SidepanelView() {
                 var this_marker = self.markersData()[i];
                 var marker = new google.maps.Marker({
                     position: {
-                        lat: this_marker.latitude,
-                        lng: this_marker.longitude
+                        lat: this_marker.coordinates.latitude,
+                        lng: this_marker.coordinates.longitude
                     },
                     map: map,
                     title: this_marker.name,
