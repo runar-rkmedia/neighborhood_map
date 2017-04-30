@@ -14,7 +14,7 @@ function SidepanelView() {
     self.markers = ko.observableArray();
     self.userFilter = ko.observable();
     self.errormsg = ko.observable();
-    self.loading = ko.observable(true);
+    self.loading = ko.observable();
     self.businesses = ko.observableArray(
         [{
                 name: 'A restaurant',
