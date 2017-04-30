@@ -29,7 +29,8 @@ function SidepanelView() {
                 coordinates: {
                     latitude: 41.7985825977264,
                     longitude: 12.476845091052
-                }
+                },
+                id: 1
             },
             {
                 name: 'Another restaurant',
@@ -40,7 +41,8 @@ function SidepanelView() {
                 coordinates: {
                     latitude: 41.8985825977264,
                     longitude: 12.476845091052
-                }
+                },
+                id: 2
             }
         ]
     );
@@ -183,6 +185,7 @@ function SidepanelView() {
     self.popInfoWindow = function(markerData) {
         // When clicking an item in the menu that is on a different location,
         // jump to that location
+        // console.log(markerData.id);
         if (this.place_id != self.currentPlaceData().id) {
             for (var i = 0; i < self.placesData().length; i++) {
                 thisPlace = self.placesData()[i];

@@ -81,13 +81,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" data-bind="attr: {id: 'heading' + $index()}">
                     <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-bind="text: name, attr: {href: '#collapse' + $index()}"></a>
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-bind="text: name, attr: {href: '#collapse' + $data.id}"></a>
                         <span class="rating pull-right">
                             {% include 'includes/rating.html' %}
                         </span>
                     </h4>
                 </div>
-                <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: {id: 'collapse' + $index(), 'aria-labelledby': 'collapse' + $index()}">
+                <div class="panel-collapse collapse" role="tabpanel" data-bind="attr: {id:  'collapse' + $data.id, 'aria-labelledby': 'collapse' + $index()}">
                     <div class="panel-body">
                         <img class="hidden dontload img-responsive" data-bind="attr: { 'url': $data.image_url, 'alt': $data.name + ' image', 'title': $data.name}">
                         <div data-bind="text: rating"></div>
