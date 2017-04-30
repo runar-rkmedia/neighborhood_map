@@ -16,7 +16,7 @@ function SidepanelView() {
     self.errormsg = ko.observable();
     self.loading = ko.observable();
     self.yelp_term = ko.observable();
-    self.yelp_pricerange = ko.observableArray(["1","2","3"]);
+    self.yelp_sorting = ko.observable('best_match');
     self.businesses = ko.observableArray(
         [{
                 name: 'A restaurant',
@@ -112,8 +112,6 @@ function SidepanelView() {
     self.getYelp = function(event) {
         var p = self.currentPlaceData();
         var term = "";
-        var pricing_filter = self.yelp_pricerange().join(',');
-        console.log(pricing_filter);
         if (self.yelp_term()) {
             term = self.yelp_term();
         }
@@ -123,14 +121,11 @@ function SidepanelView() {
                     'latitude': p.latitude,
                     'longitude': p.longitude,
                     'term': term,
-                    'pricing_filter': pricing_filter,
+                    'sort_by': self.yelp_sorting,
                 })
                 .done(function(data) {
                     self.loading(false);
                     self.businesses(data.businesses);
-                    for (var i = 0; i < data.businesses.length; i++) {
-                        console.log(data.businesses[i].price);
-                    }
                 });
         }
     };
