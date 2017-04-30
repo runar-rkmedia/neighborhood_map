@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<!-- ko foreach: new Array(Math.floor(rating)) -->
+<span class="glyphicon glyphicon-star"></span>
+<!-- /ko -->
+<!-- ko if: rating-Math.floor(rating)>0 -->
+<span class="glyphicon glyphicon-star half"></span>
+<!-- /ko -->
+<!-- ko foreach: new Array(Math.floor(5-rating)) -->
+<span class="glyphicon glyphicon-star-empty"></span>
+<!-- /ko -->
+<span class="review-count" data-bind="text: '(' + review_count + ')'">sdf</span>

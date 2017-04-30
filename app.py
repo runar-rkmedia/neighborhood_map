@@ -11,6 +11,8 @@ from flask import (
 )
 from models import db, Place, Marker
 from flask_scss import Scss
+from werkzeug.contrib.cache import SimpleCache
+cache = SimpleCache()
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -29,32 +31,42 @@ def view_map():
 def json_yelp():
     """Return a json of a yelp search."""
 
-    app_id = app.config['YELP_CLIENT_ID']
-    app_secret = app.config['YELP_CLIENT_SECRET']
     latitude = request.form['latitude']
     longitude = request.form['longitude']
     term = request.form['term']
-    pricing_filter = request.form['pricing_filter']
+    print(term)
+    sort_by = request.form['sort_by']
     if latitude and longitude:
-        data = {'grant_type': 'client_credentials',
-                'client_id': app_id,
-                'client_secret': app_secret}
-        token = requests.post('https://api.yelp.com/oauth2/token', data=data)
-        access_token = token.json()['access_token']
+        access_token = get_yelp_access_token()
         url = 'https://api.yelp.com/v3/businesses/search'
         headers = {'Authorization': 'bearer %s' % access_token}
         params = {
             'latitude': latitude,
             'longitude': longitude,
             'term': term,
-            'pricing_filter': pricing_filter,
-            'sort_by': 'rating'
+            'sort_by': sort_by,
         }
 
         resp = requests.get(url=url, params=params, headers=headers)
 
-        print(type(resp))
         return app.response_class(resp, content_type='application/json')
+
+
+def get_yelp_access_token():
+    """Get and cache the access token from yelp."""
+    app_id = app.config['YELP_CLIENT_ID']
+    app_secret = app.config['YELP_CLIENT_SECRET']
+    access_token = cache.get('yelp-token')
+    if access_token is None:
+        print('getting new token')
+        data = {'grant_type': 'client_credentials',
+                'client_id': app_id,
+                'client_secret': app_secret}
+        token = requests.post(
+            'https://api.yelp.com/oauth2/token', data=data)
+        access_token = token.json()['access_token']
+        cache.set('yelp-token', access_token, timeout=60 * 60 * 24 * 90)
+    return access_token
 
 
 @app.route('/json/places/', methods=['GET'])
@@ -118,3 +130,5 @@ if __name__ == "__main__":
 if app.config['DEBUG'] is True:
     # setup scss-folders
     Scss(app, static_dir='static/css/', asset_dir='assets/scss/')
+
+get_yelp_access_token()

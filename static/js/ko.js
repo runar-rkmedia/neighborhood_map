@@ -14,11 +14,14 @@ function SidepanelView() {
     self.markers = ko.observableArray();
     self.userFilter = ko.observable();
     self.errormsg = ko.observable();
-    self.loading = ko.observable(true);
+    self.loading = ko.observable();
+    self.yelp_term = ko.observable();
+    self.yelp_sorting = ko.observable('best_match');
     self.businesses = ko.observableArray(
-        [{
+        [
+            {
                 name: 'A restaurant',
-                rating: 4.5,
+                rating: 4.0,
                 review_count: 320,
                 url: 'sdf',
                 image_url: 'http://placehold.it/350x150',
@@ -29,7 +32,7 @@ function SidepanelView() {
             },
             {
                 name: 'Another restaurant',
-                rating: 3.2,
+                rating: 3.5,
                 review_count: 3233,
                 url: 'sdfsadfa',
                 image_url: 'http://placehold.it/350x150',
@@ -107,20 +110,24 @@ function SidepanelView() {
         });
 
     // Retrieve restaurants from yelp
-    self.getYelp = function() {
+    self.getYelp = function(event) {
+        var c = map.getCenter();
         var p = self.currentPlaceData();
-        if (p) {
+        var term = "";
+        if (self.yelp_term()) {
+            term = self.yelp_term();
+        }
+        if (p && c) {
             self.loading(true);
             $.post("/json/yelp/", {
-                    'latitude': p.latitude,
-                    'longitude': p.longitude,
-                    'term': '',
-                    'pricing_filter': '',
+                    'latitude': c.lat(),
+                    'longitude': c.lng(),
+                    'term': term,
+                    'sort_by': self.yelp_sorting,
                 })
                 .done(function(data) {
                     self.loading(false);
                     self.businesses(data.businesses);
-                    console.log(data.businesses);
                 });
         }
     };
