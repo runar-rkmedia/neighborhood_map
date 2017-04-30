@@ -14,6 +14,7 @@ function SidepanelView() {
     self.markers = ko.observableArray();
     self.userFilter = ko.observable();
     self.errormsg = ko.observable();
+    self.loading = ko.observable(true);
     self.businesses = ko.observableArray(
         [{
                 name: 'A restaurant',
@@ -109,6 +110,7 @@ function SidepanelView() {
     self.getYelp = function() {
         var p = self.currentPlaceData();
         if (p) {
+            self.loading(true);
             $.post("/json/yelp/", {
                     'latitude': p.latitude,
                     'longitude': p.longitude,
@@ -116,6 +118,7 @@ function SidepanelView() {
                     'pricing_filter': '',
                 })
                 .done(function(data) {
+                    self.loading(false);
                     self.businesses(data.businesses);
                     console.log(data.businesses);
                 });
@@ -199,4 +202,9 @@ $('div.panel-group').on('show.bs.collapse', function (event) {
     img.attr('src',img.attr('url'));
     img.removeClass('hidden');
     img.removeClass('dontload');
+});
+
+$('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  var vm = ko.dataFor(document.body);
+  // vm.getYelp();
 });

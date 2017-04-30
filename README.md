@@ -22,6 +22,7 @@ python app.py
 - Custom markers loaded from server.
 
 # Notes
+- Flask-assets? (jsmin)
 - SAP (Knockout)
 - Bootstrap/Backbone?
 - Google Maps

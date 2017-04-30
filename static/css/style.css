@@ -8,21 +8,42 @@ body, html {
     background-color: #cbe0ff;
     padding: 1ex 2em; }
 
-    .map {
-      height: 100%;
-      min-height: 600px;
-      border: 3px solid #042849; }
+    .glyphicon {
+      margin-right: 0.4em; }
 
-      .closed {
-        display: none !important; }
+      .glyphicon-refresh-animate {
+        -animation: spin 1.4s infinite ease;
+        -webkit-animation: spin2 1.4s infinite ease-out; }
 
-        .item-rating {
-          display: inline;
-          font-weight: bold; }
-          .item-rating:before {
-            content: 'Rating: '; }
-            .item-rating:after {
-              content: ' out of 5'; }
+        @-webkit-keyframes spin2 {
+          from {
+            -webkit-transform: rotate(0deg);   }
+            to {
+              -webkit-transform: rotate(540deg);   }
+}
+
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);   }
+    to {
+      transform: scale(1) rotate(540deg);   }
+}
+
+.map {
+  height: 100%;
+  min-height: 600px;
+  border: 3px solid #042849; }
+
+  .closed {
+    display: none !important; }
+
+    .item-rating {
+      display: inline;
+      font-weight: bold; }
+      .item-rating:before {
+        content: 'Rating: '; }
+        .item-rating:after {
+          content: ' out of 5'; }
 
 .item-reviews {
   display: inline; }

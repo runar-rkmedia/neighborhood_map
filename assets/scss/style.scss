@@ -22,4 +22,22 @@ html {
     background-color: $primary-light-color;
     padding: 1ex 2em;
 }
+.glyphicon {
+    margin-right: 0.4em;
+}
+.glyphicon-refresh-animate {
+    -animation: spin 1.4s infinite ease;
+    -webkit-animation: spin2 1.4s infinite ease-out;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(540deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(540deg);}
+
+}
 @import "panel"
