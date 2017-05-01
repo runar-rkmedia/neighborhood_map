@@ -25,6 +25,12 @@
             <li data-bind="text: name, click: $root.changePlace"></li>
         </ul>
         <div class="" data-bind="text: name"></div>
+        <!-- ko if: wiki_articles-->
+        sadlfkj
+        <div class="wiki-article" data-bind="html: wiki_articles">
+
+        </div>
+        <!-- /ko -->
     </div>
     <!-- Markers-list -->
     <div id="markers" role="tabpanel" class="tab-pane fade" data-bind="if: showMarkersList">

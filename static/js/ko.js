@@ -157,24 +157,49 @@ function SidepanelView() {
         targets.toggleClass('hidden');
     };
 
-    self.showMenu = function () {
+    self.showMenu = function() {
         var a = $('aside');
         var m = $('main');
         if (a.is(':visible')) {
-            m.css({'margin-left': a.width()});
-            m.animate({'margin-left': 0},500);
-            a.animate({left: -a.width(), },500, function () {
+            m.css({
+                'margin-left': a.width()
+            });
+            m.animate({
+                'margin-left': 0
+            }, 500);
+            a.animate({
+                left: -a.width(),
+            }, 500, function() {
                 a.hide();
             });
-        }else {
-            m.animate({'margin-left': a.width()},500);
+        } else {
+            m.animate({
+                'margin-left': a.width()
+            }, 500);
             a.show();
-            a.animate({left: 0},500);
+            a.animate({
+                left: 0
+            }, 500);
 
         }
         a.removeClass('visible-lg');
         a.removeClass('visible-md');
     };
+    self.wiki_articles = ko.observable();
+    self.retrieveWikis = ko.computed(function() {
+        if (self.currentPlaceData()) {
+            getWikiArticle(
+                self.currentPlaceData().name
+            ).done(function(result) {
+                console.log(result);
+                // self.wiki_articles.push({
+                //     name: self.currentPlaceData().name,
+                //     result: result
+                // });
+                self.wiki_articles(result.parse.text['*']);
+            });
+        }
+    });
     self.popInfoWindow = function(markerData) {
         // When clicking an item in the menu that is on a different location,
         // jump to that location
@@ -200,23 +225,23 @@ function SidepanelView() {
 
 ko.applyBindings(new SidepanelView());
 // When expanding a restaurant-item in the menu, only then do we load the image to that restaurant.
-$('div.panel-group').on('show.bs.collapse', function (event) {
+$('div.panel-group').on('show.bs.collapse', function(event) {
     target = $(event.target);
     img = target.find('.dontload');
-    img.attr('src',img.attr('url'));
+    img.attr('src', img.attr('url'));
     img.removeClass('hidden');
     img.removeClass('dontload');
 });
 
-$('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  var vm = ko.dataFor(document.body);
-  if (vm.businesses().length===0) {
-      vm.getYelp();
-  }
+$('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    var vm = ko.dataFor(document.body);
+    if (vm.businesses().length === 0) {
+        vm.getYelp();
+    }
 });
 
 $(document).ready(function() {
-  $('[data-toggle=offcanvas]').click(function() {
-    $('.row-offcanvas').toggleClass('active');
-  });
+    $('[data-toggle=offcanvas]').click(function() {
+        $('.row-offcanvas').toggleClass('active');
+    });
 });
