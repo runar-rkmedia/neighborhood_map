@@ -11,16 +11,37 @@ $secondary-dark-color: #042849;
 $secondary-selected-color: #1f7d6d;
 $danger-color: #F9BF3B;
 
+$burger-size: 48px;
+$aside-width: 380px;
+$header-height: 58px;
+
 body,
 html {
     height: 100%;
-    margin: 0;
+    margin: 0px;
     padding: 0;
-}
-.container {
-    border: 3px solid $primary-dark-color;
     background-color: $primary-light-color;
+}
+
+.container-full {
     padding: 1ex 2em;
+    height: 100%;
+    margin: 0 1em;
+}
+header{
+    background-color: $primary-dark-color;
+    color: $light-text-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 990;
+    width: 100%;
+    height: $header-height;
+    padding: 8px 20px;
+}
+.main, aside {
+    margin-top: $header-height;
+    height: calc(100% - #{$header-height});
 }
 .rating .glyphicon{
     margin-right: -.3em;
@@ -44,4 +65,5 @@ html {
 .gray-text{
     opacity: 0.8;
 }
-@import "panel"
+@import "panel";
+// @import "sidebar";
