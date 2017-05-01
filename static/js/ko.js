@@ -262,7 +262,7 @@ $('div.panel-group').on('show.bs.collapse', function (event) {
 
 $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   var vm = ko.dataFor(document.body);
-  // vm.getYelp();
+  vm.getYelp();
 });
 
 $(document).ready(function() {
@@ -270,9 +270,3 @@ $(document).ready(function() {
     $('.row-offcanvas').toggleClass('active');
   });
 });
-// $(window).click(function() {
-// //Hide the menus if visible
-// $('aside').animate({
-//     left: -500
-// },500);
-// });

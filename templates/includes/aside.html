@@ -4,19 +4,19 @@
 <div class="" data-bind="text: userFilter"></div>
 <!-- Nav tabs -->
 <ul class="nav nav-pills" role="tablist">
-    <li role="presentation">
+    <li role="presentation" class="active">
         <a href="#places" aria-controls="places" role="tab" data-toggle="tab">Places</a>
     </li>
     <li role="presentation">
         <a href="#markers" aria-controls="markers" role="tab" data-toggle="tab">Markers</a>
     </li>
-    <li role="presentation" id="nav-restaurants" class="active">
+    <li role="presentation" id="nav-restaurants">
         <a href="#restaurants" aria-controls="restaurants" role="tab" data-toggle="tab">Restaurants</a>
     </li>
 </ul>
 <div class="tab-content clearfix">
     <!-- Places-list -->
-    <div id="places" role="tabpanel" class="tab-pane fade in" data-bind="if: showPlacesList">
+    <div id="places" role="tabpanel" class="tab-pane fade in active" data-bind="if: showPlacesList">
         <h3>Places:</h3>
         {% with text = "Retrieving places" %}
         {% include 'includes/loadbutton.html' %}
@@ -40,7 +40,7 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Restaurants -->
-    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in active" data-bind="if: businesses().length">
+    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in" data-bind="if: businesses().length">
         <h3>Restaurants</h3>
         {% with text = "Retrieving restaurants" %}
         {% include 'includes/loadbutton.html' %}
