@@ -34,7 +34,6 @@ def json_yelp():
     latitude = request.form['latitude']
     longitude = request.form['longitude']
     term = request.form['term']
-    print(term)
     sort_by = request.form['sort_by']
     if latitude and longitude:
         access_token = get_yelp_access_token()
@@ -124,7 +123,6 @@ if __name__ == "__main__":
             db.session.commit()
             print("Database tables created")
     else:
-        print(app.config['DEBUG'])
         app.run()
 
 if app.config['DEBUG'] is True:
