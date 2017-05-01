@@ -1,4 +1,22 @@
 <!DOCTYPE html>
+
+<div class="weather">
+    {% with text = "Retrieving places", observable = 'loadingWeather' %}
+    {% include 'includes/loadbutton.html' %}
+    {% endwith %}
+    <!-- ko with: currentWeather -->
+    <h4 class="wether-headline" data-bind="text: 'Weather for ' + name"></h4>
+    <div class="weather-data">
+        <!-- ko with: weather[0] -->
+        <div class="weather-main" data-bind="text: description"></div>
+        <img data-bind="attr: {src: 'http://openweathermap.org/img/w/' + icon + '.png'}" alt="Weather-icon">
+        <!-- /ko -->
+        <!-- ko with: main -->
+        <div class="weather-temp" data-bind="text: (temp-273.15).toFixed(1) + ' ˚C'"></div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>
 <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
 <div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
 <div class="" data-bind="text: userFilter"></div>
@@ -18,7 +36,8 @@
     <!-- Places-list -->
     <div id="places" role="tabpanel" class="tab-pane fade in active" data-bind="if: showPlacesList">
         <h3>Places:</h3>
-        {% with text = "Retrieving places" %}
+        {% with text = "Retrieving places",
+        observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
         <ul data-bind="foreach: filterPlaces">
@@ -29,7 +48,8 @@
     <!-- Markers-list -->
     <div id="markers" role="tabpanel" class="tab-pane fade" data-bind="if: showMarkersList">
         <h3>Markers:</h3>
-        {% with text = "Retrieving markers" %}
+        {% with text = "Retrieving markers",
+        observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
         <div class="filterdesc" data-bind="text: filterdesc"></div>
@@ -40,9 +60,10 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Restaurants -->
-    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in" >
+    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in">
         <h3>Restaurants</h3>
-        {% with text = "Retrieving restaurants" %}
+        {% with text = "Retrieving restaurants",
+        observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
         <form data-bind="submit: getYelp">
@@ -56,29 +77,30 @@
             <p class="gray-text">Will search for places nearby the center of the map.</p>
             <div class="form-group">
                 <label>Sorted by:</label><br>
-<div>
-    <label class="radio-inline">
-        <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelp_sorting">
-        Best Match
-    </label>
-    <label class="radio-inline">
-        <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelp_sorting">
-        Rating
-    </label>
-</div>
-<div>
-    <label class="radio-inline">
-        <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelp_sorting">
-        Number of reviews
-    </label>
-    <label class="radio-inline">
-        <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelp_sorting">
-        Distance
-    </label>
-</div>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelp_sorting">
+                        Best Match
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelp_sorting">
+                        Rating
+                    </label>
+                </div>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelp_sorting">
+                        Number of reviews
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelp_sorting">
+                        Distance
+                    </label>
+                </div>
             </div>
         </form>
-        {% with text = "Retrieving restaurants" %}
+        {% with text = "Retrieving restaurants",
+        observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
         <hr data-bind="visible: businesses().length">

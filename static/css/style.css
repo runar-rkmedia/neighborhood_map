@@ -203,3 +203,12 @@ aside {
 .close-button {
   color: #8fa8bd;
   font-size: 24px; }
+
+  .weather-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px; }
+
+    .weather-main {
+      text-transform: capitalize; }

@@ -120,6 +120,25 @@ function SidepanelView() {
             map.setZoom(place.zoom);
         }
     });
+    self.loadingWeather = ko.observable();
+    self.currentWeather = ko.observable();
+    ko.computed(function() {
+        self.loadingWeather(true);
+        if (self.google() && self.currentPlaceData()) {
+            var c = map.getCenter();
+            $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + c.lat() + "&lon=" + c.lng() + "&id=524901&APPID=97e52ac5a6390a6e0693d73682eab2f9")
+                .done(function(data) {
+                    self.currentWeather(data);
+                    self.loadingWeather(false);
+                })
+                .fail(function(e) {
+                    console.log(e);
+                    self.loadingWeather(false);
+                    self.errormsg('Could not retrieve data: Error ' + e.status);
+                });
+        }
+
+    });
     // Place markers on map whenever markers changes
     self.putmarkers = ko.computed(function() {
         var m = self.currentMarkers();
@@ -157,19 +176,29 @@ function SidepanelView() {
         targets.toggleClass('hidden');
     };
 
-    self.showMenu = function () {
+    self.showMenu = function() {
         var a = $('aside');
         var m = $('main');
         if (a.is(':visible')) {
-            m.css({'margin-left': a.width()});
-            m.animate({'margin-left': 0},500);
-            a.animate({left: -a.width(), },500, function () {
+            m.css({
+                'margin-left': a.width()
+            });
+            m.animate({
+                'margin-left': 0
+            }, 500);
+            a.animate({
+                left: -a.width(),
+            }, 500, function() {
                 a.hide();
             });
-        }else {
-            m.animate({'margin-left': a.width()},500);
+        } else {
+            m.animate({
+                'margin-left': a.width()
+            }, 500);
             a.show();
-            a.animate({left: 0},500);
+            a.animate({
+                left: 0
+            }, 500);
 
         }
         a.removeClass('visible-lg');
@@ -200,23 +229,23 @@ function SidepanelView() {
 
 ko.applyBindings(new SidepanelView());
 // When expanding a restaurant-item in the menu, only then do we load the image to that restaurant.
-$('div.panel-group').on('show.bs.collapse', function (event) {
+$('div.panel-group').on('show.bs.collapse', function(event) {
     target = $(event.target);
     img = target.find('.dontload');
-    img.attr('src',img.attr('url'));
+    img.attr('src', img.attr('url'));
     img.removeClass('hidden');
     img.removeClass('dontload');
 });
 
-$('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  var vm = ko.dataFor(document.body);
-  if (vm.businesses().length===0) {
-      vm.getYelp();
-  }
+$('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    var vm = ko.dataFor(document.body);
+    if (vm.businesses().length === 0) {
+        vm.getYelp();
+    }
 });
 
 $(document).ready(function() {
-  $('[data-toggle=offcanvas]').click(function() {
-    $('.row-offcanvas').toggleClass('active');
-  });
+    $('[data-toggle=offcanvas]').click(function() {
+        $('.row-offcanvas').toggleClass('active');
+    });
 });
