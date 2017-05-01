@@ -16,19 +16,21 @@
 </head>
 <body>
     <header>
+        <div class="header">
             <h1>Neighborhood Map</h1>
             <!-- ko with: currentPlaceData -->
             <h2 data-bind="text: name"></h2>
             <h3 data-bind="text: description"></h3>
             <!-- /ko -->
+        </div>
     </header>
-    <aside
-    class=" sidepanel navbar-left visible-lg visible-md">
+    <aside class=" sidepanel navbar-left visible-lg visible-md">
+        <div class="errormsg bg-danger" data-bind="text: errormsg"></div>
         {% include 'includes/aside.html' %}
     </aside>
     <div class="container-full body-container">
         {% block body %}{% endblock %}
-</div>
+    </div>
     <script src="{{url_for('static', filename='js/map.js')}}"></script>
     <script src="{{url_for('static', filename='js/ko.js')}}"></script>
 </body>
