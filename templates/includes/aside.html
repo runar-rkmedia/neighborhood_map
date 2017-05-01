@@ -45,7 +45,7 @@
         <hr data-bind="visible: businesses().length">
         <ul class="list">
             <!-- ko foreach: filterPlaces -->
-            <li data-bind="text: name, ctrck: $root.changePlace"></li>
+            <li data-bind="text: name, click: $root.changePlace"></li>
             <!-- /ko -->
         </ul>
         <div class="" data-bind="text: name"></div>
