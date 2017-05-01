@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
-
 <div class="weather">
-    {% with text = "Retrieving places", observable = 'loadingWeather' %}
+    {% with text = "Retrieving places",
+    observable = 'loadingWeather' %}
     {% include 'includes/loadbutton.html' %}
     {% endwith %}
     <!-- ko with: currentWeather -->
@@ -19,9 +19,6 @@
     <!-- /ko -->
 </div>
 <hr>
-<label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
-<div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
-<div class="" data-bind="text: userFilter"></div>
 <!-- Nav tabs -->
 <ul class="nav nav-pills" role="tablist">
     <li role="presentation" class="active">
@@ -42,7 +39,12 @@
         observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
-        <hr data-bind="visible: businesses().length">
+        <label for="filterMarker">Filter</label>
+        <div class="input-group">
+            <input id="filterMarker" type="text" data-bind="textInput: userFilter"></div>
+        <div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
+        <div class="" data-bind="text: userFilter"></div>
+        <hr data-bind="visible: filterPlaces().length">
         <ul class="list">
             <!-- ko foreach: filterPlaces -->
             <li data-bind="text: name, click: $root.changePlace"></li>
@@ -53,6 +55,11 @@
     <!-- Markers-list -->
     <div id="markers" role="tabpanel" class="tab-pane fade">
         <h3>Markers:</h3>
+        <label for="filterMarker">Filter</label>
+        <div class="input-group">
+            <input id="filterMarker" type="text" data-bind="textInput: userFilter"></div>
+        <div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
+        <hr data-bind="visible: filterMarkers().length">
         {% with text = "Retrieving markers",
         observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}

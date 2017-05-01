@@ -20,7 +20,6 @@
 .panel-title a{
     display: inline-block;
     font-size: 12px;
-    // width: 238;
     max-width: 230px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -182,4 +181,7 @@ h1 {
 }
 .list li{
     padding: .1ex;
+}
+aside input{
+    color: $primary-dark-color;
 }
