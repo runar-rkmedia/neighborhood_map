@@ -92,41 +92,44 @@ body, html {
         .panel-group {
           color: #00051c; }
 
-          .review-count {
-            min-width: 3em;
-            width: 3em;
-            display: inline-block;
-            text-align: right; }
+          .panel-title a {
+            font-size: 12px; }
 
-            .glyphicon-star.half {
-              position: relative; }
-              .glyphicon-star.half:before {
-                position: relative;
-                z-index: 9;
-                width: 47%;
-                display: block;
-                overflow: hidden; }
-                .glyphicon-star.half:after {
-                  content: '';
-                  position: absolute;
-                  z-index: 8;
-                  color: #bdc3c7;
-                  top: 0;
-                  left: 0; }
+            .review-count {
+              min-width: 3em;
+              width: 3em;
+              display: inline-block;
+              text-align: right; }
+
+              .glyphicon-star.half {
+                position: relative; }
+                .glyphicon-star.half:before {
+                  position: relative;
+                  z-index: 9;
+                  width: 47%;
+                  display: block;
+                  overflow: hidden; }
+                  .glyphicon-star.half:after {
+                    content: '';
+                    position: absolute;
+                    z-index: 8;
+                    color: #bdc3c7;
+                    top: 0;
+                    left: 0; }
 
 aside {
   background-color: #cbe0ff !important;
-  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.48);
+  box-shadow: 10px 0 5px rgba(0, 0, 0, 0.48);
   overflow: scroll;
   padding: 10px;
-  width: 380px;
+  width: 400px;
   position: fixed;
   left: 0;
   z-index: 99; }
 
   @media screen and (max-width: 600px) {
     aside {
-      width: 80%;   }
+      width: 85%;   }
       .review-count {
         display: none;   }
         .rating .glyphicon {
@@ -135,7 +138,7 @@ aside {
 }
 
 .main.row {
-  margin-left: 380px; }
+  margin-left: 400px; }
 
   h1 {
     display: inline; }
@@ -143,7 +146,7 @@ aside {
     @media screen and (max-width: 993px) {
       aside {
         position: fixed;
-        left: -380px;
+        left: -400px;
         z-index: 10;   }
         .main {
           margin-left: 0 !important;   }
@@ -168,10 +171,10 @@ aside {
   align-items: center; }
 
   .menu-burger {
-    -animation: fromLeft 1.5s infinite ease;
-    -webkit-animation: fromLeft2 1.5s infinite ease-in; }
+    -animation: pulse 1.5s infinite ease;
+    -webkit-animation: pulse2 1.5s infinite ease-in; }
 
-    @-webkit-keyframes fromLeft2 {
+    @-webkit-keyframes pulse2 {
       0% {
         -webkit-transform: scale(1);   }
         20% {
@@ -184,7 +187,7 @@ aside {
                 -webkit-transform: scale(1);   }
 }
 
-@keyframes fromLeft {
+@keyframes pulse {
   0% {
     transform: scale(1);   }
     20% {
