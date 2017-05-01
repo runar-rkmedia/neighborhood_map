@@ -86,13 +86,14 @@ h1 {
 @media screen and (max-width: 993px) {
     aside {
         position: fixed;
-        left: 0;
+        left: -$aside-width;
         z-index: 10;
     }
     .main {
         margin-left: 0 !important;
     }
 }
+
 
 .menu-burger {
     position: fixed;
@@ -114,11 +115,11 @@ h1 {
 }
 
 .menu-burger {
-    -animation: spin 1.5s infinite ease;
-    -webkit-animation: spin2 1.5s infinite ease-in;
+    -animation: pulse 1.5s infinite ease;
+    -webkit-animation: pulse2 1.5s infinite ease-in;
 }
 
-@-webkit-keyframes spin2 {
+@-webkit-keyframes pulse2 {
     0% { -webkit-transform: scale(1);}
     20% { -webkit-transform: scale(1.1);}
     40% { -webkit-transform: scale(1.0);}
@@ -126,7 +127,7 @@ h1 {
     80% { -webkit-transform: scale(1);}
 }
 
-@keyframes spin {
+@keyframes pulse {
     0% { transform: scale(1);}
     20% { transform: scale(1.1);}
     40% { transform: scale(1.0);}
@@ -134,6 +135,7 @@ h1 {
     80% { transform: scale(1);}
 
 }
+
 .close-button{
     color: $grey-text-color;
     font-size: 24px;

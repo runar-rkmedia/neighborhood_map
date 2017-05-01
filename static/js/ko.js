@@ -18,8 +18,7 @@ function SidepanelView() {
     self.loading = ko.observable();
     self.yelp_term = ko.observable();
     self.yelp_sorting = ko.observable('best_match');
-    self.businesses = ko.observableArray(
-    );
+    self.businesses = ko.observableArray();
 
     // Filter places on search
     self.filterPlaces = ko.computed(function() {
@@ -156,50 +155,24 @@ function SidepanelView() {
         var targets = $(event.target).parent().find('.expandable');
         targets.toggleClass('hidden');
     };
-    self.menuVisible = ko.observable($('aside').not(':visible'));
 
     self.showMenu = function () {
         var a = $('aside');
         var m = $('main');
         if (a.is(':visible')) {
-            a.css({
-                // position: 'fixed',
-                'z-index': 99,
-            });
-            m.css({
-                'margin-left': a.width()
-            });
-            m.animate({
-                'margin-left': 0
-            },500);
-            a.animate({
-                left: 0
-            },0);
-            a.animate({
-                left: -a.width(),
-
-            },500, function () {
+            m.css({'margin-left': a.width()});
+            m.animate({'margin-left': 0},500);
+            a.animate({left: -a.width(), },500, function () {
                 a.hide();
             });
         }else {
-            a.css({
-                // position: 'inherit',
-            });
-            m.animate({
-                'margin-left': a.width()
-            },500);
+            m.animate({'margin-left': a.width()},500);
             a.show();
-            a.animate({
-                left: -a.width()
-            },0);
-            a.animate({
-                left: 0
-            },500);
+            a.animate({left: 0},500);
 
         }
         a.removeClass('visible-lg');
         a.removeClass('visible-md');
-        self.menuVisible(!a.is(':visible'));
     };
     self.popInfoWindow = function(markerData) {
         // When clicking an item in the menu that is on a different location,
