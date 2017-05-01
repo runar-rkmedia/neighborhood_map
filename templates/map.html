@@ -2,11 +2,6 @@
 {% extends 'base.html' %}
 {% block body %}
     <div class="row main">
-        <div class="errormsg text-danger" data-bind="text: errormsg"></div>
-        <div class="menu-burger glyphicon glyphicon-menu-right" type="div" name="button" data-bind="click: showMenu"></div>
-        <!-- Sidepanel -->
-        <!-- <button class="btn-primary btn-lg navbar-fixed-top" type="button" name="button">Show menu</button> -->
-        <!-- Main-window -->
             <!-- Map-div -->
             <div class="map" id="map">Map will load here. If this is taking too long, Google Maps might be blocked from reaching you.</div>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>

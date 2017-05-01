@@ -38,12 +38,19 @@ header{
     width: 100%;
     height: $header-height;
     padding: 8px 20px;
+}
+.errormsg{
+    font-size: 20px;
+    // border: 2px solid $primary-dark-color;
+    background-color: $danger-color;
+}
+.header{
     display: flex;
     justify-content: space-between;
 }
-header h1,
-header h2,
-header h3,{
+.header h2,
+.header h1,
+.header h3,{
     display: inline;
     line-height:40px;
     margin: auto 0;
