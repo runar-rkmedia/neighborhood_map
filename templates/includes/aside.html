@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+
 <div class="weather">
     {% with text = "Retrieving places", observable = 'loadingWeather' %}
     {% include 'includes/loadbutton.html' %}
@@ -17,6 +18,7 @@
     </div>
     <!-- /ko -->
 </div>
+<hr>
 <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
 <div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
 <div class="" data-bind="text: userFilter"></div>
