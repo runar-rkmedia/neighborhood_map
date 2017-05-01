@@ -6,7 +6,8 @@
     {% include 'includes/loadbutton.html' %}
     {% endwith %}
     <!-- ko with: currentWeather -->
-    <h4 class="wether-headline" data-bind="text: 'Weather for ' + name"></h4>
+    <h4 class="weather-headline" data-bind="text: 'Weather for ' + name"></h4>
+    <a class="refresh glyphicon glyphicon-refresh" data-bind="click: $root.refreshWeather"></a>
     <div class="weather-data">
         <!-- ko with: weather[0] -->
         <div class="weather-main" data-bind="text: description"></div>

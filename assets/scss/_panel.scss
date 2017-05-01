@@ -169,6 +169,12 @@ h1 {
 .weather-main{
     text-transform: capitalize;
 }
+.weather-headline{
+    display: inline;
+}
+.refresh{
+    display: inline;
+}
 .weather{
     height: 100px;
     min-height: 100px;

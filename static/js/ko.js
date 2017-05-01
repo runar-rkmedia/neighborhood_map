@@ -119,10 +119,12 @@ function SidepanelView() {
             map.setZoom(place.zoom);
         }
     });
+    self.refreshWeatherDummy = ko.observable();
     // Retrieve weather-data
     ko.computed(function() {
-        self.loadingWeather(true);
+        self.refreshWeatherDummy();
         if (self.google() && self.currentPlaceData()) {
+            self.loadingWeather(true);
             var c = map.getCenter();
             $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + c.lat() + "&lon=" + c.lng() + "&id=524901&APPID=97e52ac5a6390a6e0693d73682eab2f9")
                 .done(function(data) {
@@ -135,6 +137,10 @@ function SidepanelView() {
                     self.errormsg('Could not retrieve data: Error ' + e.status);
                 });
         }
+
+    self.refreshWeather = function () {
+        self.refreshWeatherDummy.notifySubscribers();
+    };
 
     });
     // Place markers on map whenever markers changes
