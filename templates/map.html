@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% block body %}
-    <div class="row">
+<header>
+    <span>
         <h1>Neighborhood Map</h1>
-    </div>
-    <div class="row">
+        <!-- ko with: currentPlaceData -->
+        <!-- <h3 data-bind="text: name"></h3> -->
+        <!-- <div data-bind="text: description"></div> -->
+        <!-- /ko --></span>
+</header>
+<aside
+class=" sidepanel navbar-left visible-lg visible-md">
+    {% include 'includes/aside.html' %}
+</aside>
+    <div class="row main">
         <div class="errormsg text-danger" data-bind="text: errormsg"></div>
+        <div class="menu-burger glyphicon glyphicon-menu-right" type="div" name="button" data-bind="click: showMenu"></div>
         <!-- Sidepanel -->
-        <aside class="col-sm-4 sidepanel">
-            {% include 'includes/aside.html' %}
-        </aside>
+        <!-- <button class="btn-primary btn-lg navbar-fixed-top" type="button" name="button">Show menu</button> -->
         <!-- Main-window -->
-        <main class="col-xs-8">
-            <!-- ko with: currentPlaceData -->
-            <h2 data-bind="text: name"></h2>
-            <div data-bind="text: description"></div>
-            <button type="button" class="btn btn-primary" data-bind="click: $root.getYelp">Find restaurants here!</button>
-            <!-- /ko -->
             <!-- Map-div -->
             <div class="map" id="map">Map will load here. If this is taking too long, Google Maps might be blocked from reaching you.</div>
-        </main>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>
+    </div>
     {% endblock %}
