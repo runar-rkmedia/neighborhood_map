@@ -15,6 +15,17 @@
 
 </head>
 <body>
+    <header>
+            <h1>Neighborhood Map</h1>
+            <!-- ko with: currentPlaceData -->
+            <h2 data-bind="text: name"></h2>
+            <h3 data-bind="text: description"></h3>
+            <!-- /ko -->
+    </header>
+    <aside
+    class=" sidepanel navbar-left visible-lg visible-md">
+        {% include 'includes/aside.html' %}
+    </aside>
     <div class="container-full body-container">
         {% block body %}{% endblock %}
 </div>

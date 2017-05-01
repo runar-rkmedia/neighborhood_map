@@ -4,35 +4,6 @@
     border: 3px solid $primary-dark-color;
 }
 
-.closed {
-    display: none !important;
-}
-
-.item-rating {
-    display: inline;
-    font-weight: bold;
-
-    &:before {
-        content: 'Rating: ';
-    }
-
-    &:after {
-        content: ' out of 5';
-    }
-}
-
-.item-reviews {
-    display: inline;
-
-    &:before {
-        content: '(';
-    }
-
-    &:after {
-        content: ')';
-    }
-}
-
 .tab-content {
     color: white;
     background-color: #337ab7;

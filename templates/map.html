@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% block body %}
-<header>
-    <span>
-        <h1>Neighborhood Map</h1>
-        <!-- ko with: currentPlaceData -->
-        <!-- <h3 data-bind="text: name"></h3> -->
-        <!-- <div data-bind="text: description"></div> -->
-        <!-- /ko --></span>
-</header>
-<aside
-class=" sidepanel navbar-left visible-lg visible-md">
-    {% include 'includes/aside.html' %}
-</aside>
     <div class="row main">
         <div class="errormsg text-danger" data-bind="text: errormsg"></div>
         <div class="menu-burger glyphicon glyphicon-menu-right" type="div" name="button" data-bind="click: showMenu"></div>

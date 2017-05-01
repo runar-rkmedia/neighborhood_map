@@ -38,7 +38,17 @@ header{
     width: 100%;
     height: $header-height;
     padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
 }
+header h1,
+header h2,
+header h3,{
+    display: inline;
+    line-height:40px;
+    margin: auto 0;
+}
+
 .main, aside {
     margin-top: $header-height;
     height: calc(100% - #{$header-height});
@@ -66,4 +76,3 @@ header{
     opacity: 0.8;
 }
 @import "panel";
-// @import "sidebar";
