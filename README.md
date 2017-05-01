@@ -1,11 +1,23 @@
 # Getting up and running
 
+This project uses python3.
+
 To install the required packages, do this:
 ```
 pip install -r requirements.txt
 ```
 
-then run this command to generate the default database:
+You also need to create a config-file `instance/config.cfg`. This is just for secret-stuff like keys, which I am not willing to share.
+
+the contents of this file shuld be in this format:
+```
+TESTING=False
+DEBUG=True
+YELP_CLIENT_ID="YOUR CLIENT ID HERE."
+YELP_CLIENT_SECRET="YOUR CLIENT SECRET HERE"
+```
+
+After you have created that file, you can run this command to generate the default database:
 ```
 python app.py --setup
 ```
