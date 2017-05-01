@@ -19,32 +19,6 @@ function SidepanelView() {
     self.yelp_term = ko.observable();
     self.yelp_sorting = ko.observable('best_match');
     self.businesses = ko.observableArray(
-        [
-            {
-                name: 'A restaurant',
-                rating: 4.0,
-                review_count: 320,
-                url: 'sdf',
-                image_url: 'http://placehold.it/350x150',
-                coordinates: {
-                    latitude: 41.7985825977264,
-                    longitude: 12.476845091052
-                },
-                id: 1
-            },
-            {
-                name: 'Another restaurant',
-                rating: 3.5,
-                review_count: 3233,
-                url: 'sdfsadfa',
-                image_url: 'http://placehold.it/350x150',
-                coordinates: {
-                    latitude: 41.8985825977264,
-                    longitude: 12.476845091052
-                },
-                id: 2
-            }
-        ]
     );
 
     // Filter places on search
@@ -262,7 +236,9 @@ $('div.panel-group').on('show.bs.collapse', function (event) {
 
 $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   var vm = ko.dataFor(document.body);
-  vm.getYelp();
+  if (vm.businesses().length===0) {
+      vm.getYelp();
+  }
 });
 
 $(document).ready(function() {
