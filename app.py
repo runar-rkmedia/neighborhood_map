@@ -22,6 +22,8 @@ configure_app(app)
 @app.route('/')
 def view_map():
     """View for home."""
+    article = getWikiArticle('Norway');
+    print(article)
     return render_template(
         'map.html',
     )
@@ -50,6 +52,29 @@ def json_yelp():
         resp = requests.get(url=url, params=params, headers=headers)
 
         return app.response_class(resp, content_type='application/json')
+
+
+def getWikiArticle(subject):
+    """Get a wikiarticle."""
+    article = cache.get(subject)
+    if article is None:
+        print("Retrieving article '{}' for caching".format(subject))
+        params = {
+            "format": "json",
+            "action": "parse",
+            "page": subject,
+            "prop": "text",
+            "section": 0,
+        }
+        url = "https://en.wikipedia.org/w/api.php"
+        headers = {
+            'Api-User-Agent': 'Neighborhood-map by Runar'
+        }
+        resp = requests.get(url=url, params=params, headers=headers)
+        article = resp.json()['parse']['text']
+        cache.set(subject, article, timeout=60 * 60 * 24)
+    return article
+
 
 
 def get_yelp_access_token():
