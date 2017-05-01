@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <label for="">Filter<input type="text" data-bind="textInput: userFilter"></label>
-<button type="button" class="visible-sm visible-xs close glyphicon glyphicon-remove" data-bind="click: showMenu"></button>
+<div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
 <div class="" data-bind="text: userFilter"></div>
 <!-- Nav tabs -->
 <ul class="nav nav-pills" role="tablist">
@@ -10,7 +10,7 @@
     <li role="presentation">
         <a href="#markers" aria-controls="markers" role="tab" data-toggle="tab">Markers</a>
     </li>
-    <li role="presentation" id="nav-restaurants"  class="active">
+    <li role="presentation" id="nav-restaurants" class="active">
         <a href="#restaurants" aria-controls="restaurants" role="tab" data-toggle="tab">Restaurants</a>
     </li>
 </ul>
@@ -45,33 +45,37 @@
         {% with text = "Retrieving restaurants" %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
-    <form data-bind="submit: getYelp">
-        <label for="restaurantInputTerm">Search term:</label>
-        <div class="input-group">
-            <input type="search" class="form-control" data-bind="value: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
-            </span>
-        </div>
-        <p class="gray-text">Will search for places nearby the center of the map.</p>
+        <form data-bind="submit: getYelp">
+            <label for="restaurantInputTerm">Search term:</label>
+            <div class="input-group">
+                <input type="search" class="form-control" data-bind="value: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+                </span>
+            </div>
+            <p class="gray-text">Will search for places nearby the center of the map.</p>
             <div class="form-group">
                 <label>Sorted by:</label><br>
-                <label class="radio-inline">
-                    <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelp_sorting">
-                    Best Match
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelp_sorting">
-                    Rating
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelp_sorting">
-                    Number of reviews
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelp_sorting">
-                    Distance
-                </label>
+<div>
+    <label class="radio-inline">
+        <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelp_sorting">
+        Best Match
+    </label>
+    <label class="radio-inline">
+        <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelp_sorting">
+        Rating
+    </label>
+</div>
+<div>
+    <label class="radio-inline">
+        <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelp_sorting">
+        Number of reviews
+    </label>
+    <label class="radio-inline">
+        <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelp_sorting">
+        Distance
+    </label>
+</div>
             </div>
         </form>
         {% with text = "Retrieving restaurants" %}
@@ -96,7 +100,6 @@
                         <div>
                             <a data-bind="attr: { 'href': $data.url }">View on Yelp</a>
                         </div>
-
                     </div>
                 </div>
             </div>

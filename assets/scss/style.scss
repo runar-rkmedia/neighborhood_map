@@ -55,6 +55,22 @@ header{
     line-height:40px;
     margin: auto 0;
 }
+@media screen and (max-width: 993px) {
+    h1{
+        font-size: 20px;
+    }
+    h2{
+        font-size: 16px;
+    }
+    h3{
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .header h3,{
+        display: none;
+    }
+}
 
 .main, aside {
     margin-top: $header-height;
