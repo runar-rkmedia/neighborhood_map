@@ -152,3 +152,8 @@ h1 {
 .weather-main{
     text-transform: capitalize;
 }
+.weather{
+    height: 100px;
+    min-height: 100px;
+    max-height: 100px;
+}
