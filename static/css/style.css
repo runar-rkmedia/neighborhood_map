@@ -18,25 +18,32 @@ body, html {
       z-index: 990;
       width: 100%;
       height: 58px;
-      padding: 8px 20px; }
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between; }
 
-      .main, aside {
-        margin-top: 58px;
-        height: calc(100% - 58px); }
+      header h1, header h2, header h3 {
+        display: inline;
+        line-height: 40px;
+        margin: auto 0; }
 
-        .rating .glyphicon {
-          margin-right: -0.3em; }
+        .main, aside {
+          margin-top: 58px;
+          height: calc(100% - 58px); }
 
-          .glyphicon-refresh-animate {
-            margin-right: 0.4em;
-            -animation: spin 1.4s infinite ease;
-            -webkit-animation: spin2 1.4s infinite ease-out; }
+          .rating .glyphicon {
+            margin-right: -0.3em; }
 
-            @-webkit-keyframes spin2 {
-              from {
-                -webkit-transform: rotate(0deg);   }
-                to {
-                  -webkit-transform: rotate(540deg);   }
+            .glyphicon-refresh-animate {
+              margin-right: 0.4em;
+              -animation: spin 1.4s infinite ease;
+              -webkit-animation: spin2 1.4s infinite ease-out; }
+
+              @-webkit-keyframes spin2 {
+                from {
+                  -webkit-transform: rotate(0deg);   }
+                  to {
+                    -webkit-transform: rotate(540deg);   }
 }
 
 @keyframes spin {
@@ -54,56 +61,38 @@ body, html {
     min-height: 100px;
     border: 3px solid #042849; }
 
-    .closed {
-      display: none !important; }
+    .tab-content {
+      color: white;
+      background-color: #337ab7;
+      padding: 5px 15px; }
 
-      .item-rating {
-        display: inline;
-        font-weight: bold; }
-        .item-rating:before {
-          content: 'Rating: '; }
-          .item-rating:after {
-            content: ' out of 5'; }
+      .nav-pills > li > a {
+        border-radius: 10px 0 0 0; }
 
-.item-reviews {
-  display: inline; }
-  .item-reviews:before {
-    content: '('; }
-    .item-reviews:after {
-      content: ')'; }
+        .panel-group {
+          color: #00051c; }
 
-.tab-content {
-  color: white;
-  background-color: #337ab7;
-  padding: 5px 15px; }
+          .review-count {
+            min-width: 3em;
+            width: 3em;
+            display: inline-block;
+            text-align: right; }
 
-  .nav-pills > li > a {
-    border-radius: 10px 0 0 0; }
-
-    .panel-group {
-      color: #00051c; }
-
-      .review-count {
-        min-width: 3em;
-        width: 3em;
-        display: inline-block;
-        text-align: right; }
-
-        .glyphicon-star.half {
-          position: relative; }
-          .glyphicon-star.half:before {
-            position: relative;
-            z-index: 9;
-            width: 47%;
-            display: block;
-            overflow: hidden; }
-            .glyphicon-star.half:after {
-              content: '';
-              position: absolute;
-              z-index: 8;
-              color: #bdc3c7;
-              top: 0;
-              left: 0; }
+            .glyphicon-star.half {
+              position: relative; }
+              .glyphicon-star.half:before {
+                position: relative;
+                z-index: 9;
+                width: 47%;
+                display: block;
+                overflow: hidden; }
+                .glyphicon-star.half:after {
+                  content: '';
+                  position: absolute;
+                  z-index: 8;
+                  color: #bdc3c7;
+                  top: 0;
+                  left: 0; }
 
 aside {
   background-color: #cbe0ff !important;
