@@ -17,6 +17,9 @@
 .panel-group {
     color: $dark-text-color;
 }
+.panel-title a{
+    font-size: 12px;
+}
 
 .review-count {
     min-width: 3em;
@@ -51,7 +54,7 @@
 aside {
     background-color: $primary-light-color !important;
     // height: 100vh;
-    box-shadow: 5px 0 5px rgba(#000000, 0.48);
+    box-shadow: 10px 0 5px rgba(#000000, 0.48);
     overflow: scroll;
     // margin-right: 20px;
     // margin-left: -30px;
@@ -63,7 +66,7 @@ aside {
 }
 @media screen and (max-width: 600px) {
     aside {
-        width: 80%;
+        width: 85%;
     }
 
     .review-count {

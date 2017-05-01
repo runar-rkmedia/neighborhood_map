@@ -124,6 +124,7 @@ function SidepanelView() {
     self.putmarkers = ko.computed(function() {
         var m = self.currentMarkers();
         if (self.google() && m.length > 0) {
+            clearMarkers();
             for (var i = 0; i < m.length; i++) {
                 var this_marker = m[i];
                 this_marker.position = {
