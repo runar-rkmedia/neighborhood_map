@@ -217,3 +217,10 @@ aside {
         height: 100px;
         min-height: 100px;
         max-height: 100px; }
+
+        .list {
+          font-size: 16px;
+          margin-top: 1ex; }
+
+          .list li {
+            padding: 0.1ex; }
