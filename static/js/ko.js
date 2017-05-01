@@ -5,10 +5,8 @@ function SidepanelView() {
     var self = this;
 
     self.google = ko.observable(!!window.google);
-    self.chosenPlaceId = ko.observable();
+
     self.currentPlaceData = ko.observable();
-    self.showPlacesList = ko.observable();
-    self.showMarkersList = ko.observable(true);
     self.placesData = ko.observableArray();
     self.markersData = ko.observableArray();
     self.currentMarkers = ko.observableArray();
@@ -16,6 +14,8 @@ function SidepanelView() {
     self.userFilter = ko.observable();
     self.errormsg = ko.observable();
     self.loading = ko.observable();
+    self.loadingWeather = ko.observable();
+    self.currentWeather = ko.observable();
     self.yelp_term = ko.observable();
     self.yelp_sorting = ko.observable('best_match');
     self.businesses = ko.observableArray();
@@ -77,7 +77,6 @@ function SidepanelView() {
             self.placesData(data.places);
             self.markersData(data.markers);
             self.currentMarkers(data.markers);
-            self.showPlacesList(true);
             if (!self.currentPlaceData()) {
                 self.currentPlaceData(data.places[0]);
             }
@@ -120,8 +119,7 @@ function SidepanelView() {
             map.setZoom(place.zoom);
         }
     });
-    self.loadingWeather = ko.observable();
-    self.currentWeather = ko.observable();
+    // Retrieve weather-data
     ko.computed(function() {
         self.loadingWeather(true);
         if (self.google() && self.currentPlaceData()) {
@@ -169,7 +167,6 @@ function SidepanelView() {
         if (self.currentPlaceData() !== place) {
             self.currentPlaceData(place);
         }
-        // self.showPlacesList(false);
     };
     self.expandItem = function(item, event) {
         var targets = $(event.target).parent().find('.expandable');

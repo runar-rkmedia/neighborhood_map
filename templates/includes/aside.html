@@ -34,7 +34,7 @@
 </ul>
 <div class="tab-content clearfix">
     <!-- Places-list -->
-    <div id="places" role="tabpanel" class="tab-pane fade in active" data-bind="if: showPlacesList">
+    <div id="places" role="tabpanel" class="tab-pane fade in active">
         <h3>Places:</h3>
         {% with text = "Retrieving places",
         observable = 'loading' %}
@@ -46,7 +46,7 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Markers-list -->
-    <div id="markers" role="tabpanel" class="tab-pane fade" data-bind="if: showMarkersList">
+    <div id="markers" role="tabpanel" class="tab-pane fade">
         <h3>Markers:</h3>
         {% with text = "Retrieving markers",
         observable = 'loading' %}
