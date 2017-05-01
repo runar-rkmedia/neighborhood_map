@@ -40,7 +40,7 @@
         <div class="" data-bind="text: name"></div>
     </div>
     <!-- Restaurants -->
-    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in" data-bind="if: businesses().length">
+    <div id="restaurants" role="tabpanel" class="restaurants tab-pane fade in" >
         <h3>Restaurants</h3>
         {% with text = "Retrieving restaurants" %}
         {% include 'includes/loadbutton.html' %}

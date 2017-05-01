@@ -113,6 +113,9 @@ header {
 .panel-group {
     color: #00051c;
 }
+.panel-title a{
+    font-size: 14px;
+}
 
 .review-count {
     min-width: 3em;
