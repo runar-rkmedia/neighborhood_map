@@ -19,6 +19,7 @@ YELP_CLIENT_SECRET="YOUR CLIENT SECRET HERE"
 
 After you have created that file, you can run this command to generate the default database:
 ```
+export DATABASE_URL=postgres:///$(whoami)
 python app.py --setup
 ```
 
