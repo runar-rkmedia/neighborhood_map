@@ -6,18 +6,16 @@
     {% include 'includes/loadbutton.html' %}
     {% endwith %}
     <!-- ko with: currentWeather -->
-    <h4 class="weather-headline" data-bind="text: 'Weather for ' + name"></h4>
+    <h4 class="weather-headline" data-bind="text: 'Weather for '"></h4>
     <a class="refresh glyphicon glyphicon-refresh" data-bind="click: $root.refreshWeather"></a>
     <div class="weather-data">
-        <!-- ko with: weather[0] -->
-        <div class="weather-main" data-bind="text: description"></div>
-        <img data-bind="attr: {src: 'http://openweathermap.org/img/w/' + icon + '.png'}" alt="Weather-icon">
-        <!-- /ko -->
-        <!-- ko with: main -->
-        <div class="weather-temp" data-bind="text: (temp-273.15).toFixed(1) + ' ˚C'"></div>
+        <!-- ko with: currently -->
+        <div class="weather-main" data-bind="text: summary"></div>
+        <div class="weather-temp" data-bind="text: (temperature-273.15).toFixed(1) + ' ˚C'"></div>
         <!-- /ko -->
     </div>
     <!-- /ko -->
+    <canvas id="icon1" width="39" height="39"></canvas>
 </div>
 <hr>
 <!-- Nav tabs -->

@@ -121,15 +121,24 @@ function SidepanelView() {
     });
     self.refreshWeatherDummy = ko.observable();
     // Retrieve weather-data
+    var skycons = new Skycons({"color": "black"});
     ko.computed(function() {
         self.refreshWeatherDummy();
         if (self.google() && self.currentPlaceData()) {
             self.loadingWeather(true);
             var c = map.getCenter();
-            $.get("http://api.openweathermap.org/data/2.5/weather?lat=" + c.lat() + "&lon=" + c.lng() + "&id=524901&APPID=97e52ac5a6390a6e0693d73682eab2f9")
+            $.ajax({
+                url: "https://api.darksky.net/forecast/3f65e872a94f76c3714f5a8093fe83fa/" + c.lat() + "," + c.lng(),
+                dataType: 'jsonp',
+            })
                 .done(function(data) {
+                    console.log(data);
                     self.currentWeather(data);
+                    // TODO: get it dynamically
+                    skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+                    skycons.play();
                     self.loadingWeather(false);
+
                 })
                 .fail(function(e) {
                     console.log(e);
