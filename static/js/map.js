@@ -1,5 +1,6 @@
 var map;
 var geocoder;
+// var bounds;
 // var maxzoom = 13;
 
 // Create a new blank array for all the listing markers.
@@ -11,6 +12,7 @@ function initMap() {
         mapTypeControl: false
     });
     geocoder = new google.maps.Geocoder();
+    // bounds = new google.maps.LatLngBounds();
 
     map.setCenter({
         lat: 41.875993,
@@ -68,4 +70,14 @@ function clearMarkers() {
 function deleteMarkers() {
     clearMarkers();
     markers = [];
+}
+
+function fitMarkersInsideMap() {
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markers.length; i++) {
+        if (markers[i].visible) {
+            bounds.extend(markers[i].getPosition());
+        }
+    }
+    map.fitBounds(bounds);
 }

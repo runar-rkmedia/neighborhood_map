@@ -312,7 +312,9 @@ $('div.panel-group').on('show.bs.collapse', function(event) {
 
 $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     var vm = ko.dataFor(document.body);
-    if (vm.businesses().length === 0) {
+    var within_map = map.getBounds().contains(markers[markers.length-1].getPosition());
+    console.log(within_map);
+    if (vm.businesses().length === 0 || !within_map) {
         vm.getYelp();
     }else {
         if (vm.currentMarkers() !== vm.businesses()) {
@@ -324,8 +326,17 @@ $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 $('li#nav-markers a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     var vm = ko.dataFor(document.body);
     if (vm.currentMarkers() !== vm.markersData()) {
-        vm.currentMarkers(vm.markersData());
+        var array = [];
+        // filter through markers for place.
+        for (var i = 0; i < vm.markersData().length; i++) {
+            var thisMark = vm.markersData()[i];
+            if (thisMark.place_id === vm.currentPlaceData().id) {
+                array.push(thisMark);
+            }
+        }
+        vm.currentMarkers(array);
     }
+    fitMarkersInsideMap()
 });
 
 $(document).ready(function() {
