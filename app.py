@@ -24,6 +24,14 @@ js = Bundle('js/ko.js', 'js/map.js', 'js/bootstrap.js', 'js/skycons.js',
             filters='jsmin', output='gen/packed.js')
 assets.register('js_all', js)
 
+css = Bundle(
+    'css/bootstrap.min.css',
+    'css/style.css',
+    filters='cssmin',
+    output='css/min.css'
+)
+assets.register('css_all', css)
+
 
 @app.route('/')
 def view_map():
