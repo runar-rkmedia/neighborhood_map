@@ -210,6 +210,7 @@ function SidepanelView() {
     self.changePlace = function(place) {
         if (self.currentPlaceData() !== place) {
             self.currentPlaceData(place);
+            self.currentMarkers(self.markersData());
         }
     };
 
@@ -298,7 +299,9 @@ function SidepanelView() {
     });
     // Place markers on map whenever markers changes
     ko.computed(function() {
+        self.currentPlaceData();
         var m = self.currentMarkers();
+        console.log(m);
         if (self.google() && m.length > 0) {
             clearMarkers();
             for (var i = 0; i < m.length; i++) {
