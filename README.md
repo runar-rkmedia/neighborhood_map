@@ -6,24 +6,39 @@ To install the required packages, do this:
 ```
 pip install -r requirements.txt
 ```
+## Setting config-parameters
 
-You also need to create a config-file `instance/config.cfg`. This is just for secret-stuff like keys, which I am not willing to share.
+You need to provide some basic configuration, like database-name for PSQL, client_id and client_secret.
+
+You have two choices for how you wish to set these config-parameters, of which only one is required.
+
+### 1. Store them in a file
+Create a file `instance/config.cfg`.
 
 the contents of this file shuld be in this format:
 ```
 TESTING=False
 DEBUG=True
-YELP_CLIENT_ID="YOUR CLIENT ID HERE."
+SQLALCHEMY_DATABASE_URI="postgres:///DATABASE_NAME_HERE"
+YELP_CLIENT_ID="YOUR CLIENT ID HERE"
 YELP_CLIENT_SECRET="YOUR CLIENT SECRET HERE"
 ```
 
-After you have created that file, you can run this command to generate the default database:
+### 2. OS-envirnment variables.
 ```
-export DATABASE_URL=postgres:///$(whoami)
+export SQLALCHEMY_DATABASE_URI=postgres:///DATABASE_NAME_HERE
+export YELP_CLIENT_ID=YOUR CLIENT ID HERE
+export YELP_CLIENT_SECRET=YOUR CLIENT SECRET HERE
+```
+
+## Initiate default-database
+
+After you have created that file, you can run this command to generate the  database-structure, and insert some default-data. Note that the database itself will have to be created in advance.
+```
 python app.py --setup
 ```
 
-And to start the server in debug mode:
+<!-- ## Running the app -->
 ```
 python app.py
 ```
