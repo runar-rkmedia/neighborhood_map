@@ -156,7 +156,6 @@ function SidepanelView() {
                     })
                     .done(function(data) {
                         self.currentWeather(data);
-                        console.log(data);
                         self.knownGeolocations()[index].weather = data;
 
                         self.loadingWeather(false);
@@ -340,7 +339,6 @@ function SidepanelView() {
     self.popInfoWindow = function(markerData) {
         // When clicking an item in the menu that is on a different location,
         // jump to that location
-        // console.log(markerData.id);
         if (this.place_id != self.currentPlaceData().id) {
             for (var i = 0; i < self.placesData().length; i++) {
                 thisPlace = self.placesData()[i];
