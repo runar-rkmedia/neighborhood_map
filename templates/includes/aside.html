@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
 
 <div class="weather">
     {% with text = "Retrieving Weather",
@@ -43,7 +44,6 @@
         <label for="filterMarker">Filter</label>
         <div class="input-group">
             <input id="filterMarker" type="text" data-bind="textInput: userFilter"></div>
-        <div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
         <div class="" data-bind="text: userFilter"></div>
         <hr data-bind="visible: filterPlaces().length">
         <ul class="list">
