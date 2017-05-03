@@ -1,3 +1,20 @@
+# Neighborhood-map
+
+This is a project assigned by Udacity.
+
+#### Highlighted features:
+- Single page application
+- Big map with muliple preselected locations.
+- See weatherinformaion from current location in the map.
+- Retrieve and locate nearby restaurants.
+- Custom markers.
+
+You can preview the application here:
+
+<h2 style="color: #1d2a61">
+<a href="https://neighborhood-map-runar.herokuapp.com/">Neighborhood-map-runar.herokuapp.com</a>
+</h2>
+
 # Getting up and running
 
 This project uses python3.
