@@ -11,7 +11,6 @@ function initMap() {
         mapTypeControl: false
     });
     geocoder = new google.maps.Geocoder();
-    ko.applyBindings(new SidepanelView());
 
     map.setCenter({
         lat: 41.875993,
@@ -19,6 +18,7 @@ function initMap() {
     });
     map.setZoom(11);
     largeInfowindow = new google.maps.InfoWindow();
+    ko.applyBindings(new SidepanelView());
     var vm = ko.dataFor(document.body);
     vm.google(!!window.google);
 }
