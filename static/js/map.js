@@ -1,4 +1,5 @@
 var map;
+var geocoder;
 // var maxzoom = 13;
 
 // Create a new blank array for all the listing markers.
@@ -9,6 +10,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         mapTypeControl: false
     });
+    geocoder = new google.maps.Geocoder;
 
     map.setCenter({
         lat: 41.875993,
@@ -34,7 +36,7 @@ function populateInfoWindow(marker, infowindow) {
             content += '<div class="marker-description">' + marker.description + '</div>';
         }
         if (marker.location) {
-            content += '<div class="marker-address">' + marker.location.address1+ '<br>' + marker.location.address2 + '<br>' + marker.location.address3 + '</div>';
+            content += '<div class="marker-address">' + marker.location.address1 + '<br>' + marker.location.address2 + '<br>' + marker.location.address3 + '</div>';
         }
         // if (marker.image_url) {
         //     content += '<img class="marker-image img-responsive" src="' + marker.image_url + '" alt="' + marker.name + '">';
@@ -53,16 +55,16 @@ function populateInfoWindow(marker, infowindow) {
 }
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
 }
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
-  setMapOnAll(null);
+    setMapOnAll(null);
 }
 // Deletes all markers in the array by removing references to them.
 function deleteMarkers() {
-  clearMarkers();
-  markers = [];
+    clearMarkers();
+    markers = [];
 }

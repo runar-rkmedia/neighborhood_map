@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
 <div class="weather">
-    {% with text = "Retrieving places",
+    {% with text = "Retrieving Weather",
     observable = 'loadingWeather' %}
     {% include 'includes/loadbutton.html' %}
     {% endwith %}
+    <!-- ko if: currentWeather -->
+    <h4 data-bind="text: currentGeoName"></h4>
     <!-- ko with: currentWeather -->
-    <h4 class="weather-headline" data-bind="text: 'Weather for '"></h4>
     <a class="refresh glyphicon glyphicon-refresh" data-bind="click: $root.refreshWeather"></a>
     <div class="weather-data">
         <!-- ko with: currently -->
         <div class="weather-main" data-bind="text: summary"></div>
-        <div class="weather-temp" data-bind="text: (temperature-273.15).toFixed(1) + ' ˚C'"></div>
+        <div class="weather-temp" data-bind="text: (temperature).toFixed(1) + ' ˚C'"></div>
         <!-- /ko -->
     </div>
+    <!-- /ko -->
     <!-- /ko -->
     <canvas id="icon1" width="39" height="39"></canvas>
 </div>

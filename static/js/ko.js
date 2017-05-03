@@ -1,3 +1,4 @@
+
 var largeInfowindow;
 
 function SidepanelView() {
@@ -119,39 +120,101 @@ function SidepanelView() {
             map.setZoom(place.zoom);
         }
     });
+    var skycons = new Skycons({
+        "color": "black"
+    });
+    self.knownGeolocations = ko.observableArray();
     self.refreshWeatherDummy = ko.observable();
     // Retrieve weather-data
-    var skycons = new Skycons({"color": "black"});
     ko.computed(function() {
-        self.refreshWeatherDummy();
+        // this.extend({rateLimit: 2000})
+        self.refreshWeatherDummy(); // In case of manual refresh
         if (self.google() && self.currentPlaceData()) {
-            self.loadingWeather(true);
             var c = map.getCenter();
-            $.ajax({
-                url: "https://api.darksky.net/forecast/3f65e872a94f76c3714f5a8093fe83fa/" + c.lat() + "," + c.lng(),
-                dataType: 'jsonp',
-            })
-                .done(function(data) {
-                    console.log(data);
-                    self.currentWeather(data);
-                    // TODO: get it dynamically
-                    skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-                    skycons.play();
-                    self.loadingWeather(false);
-
-                })
-                .fail(function(e) {
-                    console.log(e);
-                    self.loadingWeather(false);
-                    self.errormsg('Could not retrieve data: Error ' + e.status);
+            var lat = c.lat();
+            var lng = c.lng();
+            var location = {
+                lat: lat,
+                lng: lng
+            };
+            var index = key_val_in_array(self.knownGeolocations(), location);
+            if (index == -1) {
+                self.knownGeolocations().push({
+                    location: location
                 });
+                index = self.knownGeolocations().length - 1;
+            }
+            // Get weather if it is not cached and not forced
+            if (!self.knownGeolocations()[index].weather || self.refreshWeatherDummy()) {
+                self.refreshWeatherDummy(false);
+                self.loadingWeather(true);
+                console.log('getting weather-data...');
+                $.ajax({
+                        url: "https://api.darksky.net/forecast/3f65e872a94f76c3714f5a8093fe83fa/" + lat + "," + lng + '?exclude=minutely,hourly,daily,flags&units=si',
+                        dataType: 'jsonp',
+                    })
+                    .done(function(data) {
+                        self.currentWeather(data);
+                        self.knownGeolocations()[index].weather = data;
+                        skycons.add("icon1", data.currently.icon);
+                        skycons.play();
+                        self.loadingWeather(false);
+
+                    })
+                    .fail(function(e) {
+                        console.log(e);
+                        self.loadingWeather(false);
+                        self.errormsg('Could not retrieve weather: Error ' + e.status);
+                    });
+            } else {
+                self.currentWeather(self.knownGeolocations()[index].weather);
+            }
+            // Only retrieve geoinfo if it is not cached
+            if (!self.knownGeolocations()[index].geoinfo) {
+                console.log('getting geo-data...');
+                geocoder.geocode({
+                    'location': location
+                }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[1]) {
+                            self.currentGeoName(results[1].formatted_address);
+                            self.knownGeolocations()[index].geoinfo = results;
+                        } else {}
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                });
+            } else {
+                self.currentGeoName(self.knownGeolocations()[index].geoinfo[1].formatted_address);
+            }
         }
+    }).extend({ deferred: true });
 
-    self.refreshWeather = function () {
-        self.refreshWeatherDummy.notifySubscribers();
+    function key_val_in_array(array, location_object) {
+        for (var i = 0; i < array.length; i++) {
+            var thisData = array[i];
+            if (thisData.location.lat == location_object.lat && thisData.location.lng == location_object.lng) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    // Refresh the weather manually
+    self.refreshWeather = function() {
+        self.refreshWeatherDummy(true);
     };
-
-    });
+    // Retrieve the current location in human-form from coordinates
+    self.currentGeoName = ko.observable();
+    // ko.computed(function () {
+    //     self.refreshWeatherDummy();
+    //     self.currentPlaceData();
+    //     console.log('firing');
+    //     if (self.google()){
+    //         console.log('gogo')
+    //         var c = map.getCenter();
+    //
+    //     }
+    // }).extend({rateLimit:{ timeout: 500, method: "notifyWhenChangesStop" } });
     // Place markers on map whenever markers changes
     self.putmarkers = ko.computed(function() {
         var m = self.currentMarkers();
