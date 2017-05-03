@@ -6,19 +6,15 @@
     observable = 'loadingWeather' %}
     {% include 'includes/loadbutton.html' %}
     {% endwith %}
-    <!-- ko if: currentWeather -->
-    <h4 data-bind="text: currentGeoName"></h4>
-    <!-- ko with: currentWeather -->
-    <a class="refresh glyphicon glyphicon-refresh" data-bind="click: $root.refreshWeather"></a>
+    <h4 class="hidden-xs" data-bind="text: currentGeoName"></h4>
+    <a class="refresh glyphicon glyphicon-refresh" data-bind="click: refreshWeather"></a>
     <div class="weather-data">
-        <!-- ko with: currently -->
-        <div class="weather-main" data-bind="text: summary"></div>
-        <div class="weather-temp" data-bind="text: (temperature).toFixed(1) + ' ˚C'"></div>
+        <canvas id="icon1" width="39" height="39"></canvas>
+        <!-- ko if: currentWeather -->
+        <span class="weather-main" data-bind="text: currentWeather().currently.summary"></span>
+        <span class="weather-temp" data-bind="text: (currentWeather().currently.temperature).toFixed(1) + ' ˚C'"></span>
         <!-- /ko -->
     </div>
-    <!-- /ko -->
-    <!-- /ko -->
-    <canvas id="icon1" width="39" height="39"></canvas>
 </div>
 <hr>
 <!-- Nav tabs -->
@@ -59,7 +55,6 @@
         <label for="filterMarker">Filter</label>
         <div class="input-group">
             <input id="filterMarker" type="text" data-bind="textInput: userFilter"></div>
-        <div type="button" class="visible-sm visible-xs close-button glyphicon glyphicon-remove pull-right" data-bind="click: showMenu"></div>
         <hr data-bind="visible: filterMarkers().length">
         {% with text = "Retrieving markers",
         observable = 'loading' %}

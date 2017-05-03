@@ -137,9 +137,9 @@ if __name__ == "__main__":
             db.session.commit()
             print("Database tables created")
     else:
-        app.run(host='0.0.0.0', port=app.config['PORT'])
-        get_yelp_access_token()
+        if app.config['DEBUG'] is True:
+            # setup scss-folders
+            Scss(app, static_dir='static/css/', asset_dir='assets/scss/')
 
-if app.config['DEBUG'] is True:
-    # setup scss-folders
-    Scss(app, static_dir='static/css/', asset_dir='assets/scss/')
+        get_yelp_access_token()
+        app.run(host='0.0.0.0', port=app.config['PORT'])

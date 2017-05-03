@@ -86,6 +86,34 @@ aside {
         font-size: 12px;
         margin: -3px;
     }
+    .nav li a{
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+    div.weather{
+        height: 30px;
+        max-height: 30px;
+        min-height: 30px;
+    }
+    .weather-data{
+         margin-top: -16px;
+    }
+    h3{
+        margin: 5px 0 7px 0;
+    }
+    form{
+        font-size: 12px;
+    }
+    hr{
+        margin: 12px 0 12px 0;
+    }
+    .panel-title a{
+        max-width: 124px;
+    }
+
+}
+#icon{
+    display: inline;
 }
 .rating {
     float: right;
@@ -104,11 +132,11 @@ h1 {
     display: inline;
 }
 @media screen and (max-width: 993px) {
-    aside {
-        position: fixed;
-        left: -$aside-width;
-        z-index: 10;
-    }
+    // aside {
+    //     position: fixed;
+    //     left: -$aside-width;
+    //     z-index: 10;
+    // }
     .main {
         margin-left: 0 !important;
     }
@@ -162,7 +190,7 @@ h1 {
 }
 .weather-data{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     font-size: 16px;
 }

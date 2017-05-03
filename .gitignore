@@ -75,4 +75,5 @@ docs/_build/
 
 virtualEnv/
 instance/
+static/.webassets-cache/
 *.db

@@ -156,6 +156,7 @@ function SidepanelView() {
                     })
                     .done(function(data) {
                         self.currentWeather(data);
+                        console.log(data);
                         self.knownGeolocations()[index].weather = data;
 
                         self.loadingWeather(false);
