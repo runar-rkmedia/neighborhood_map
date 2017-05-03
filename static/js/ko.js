@@ -302,7 +302,7 @@ function SidepanelView() {
     // self.showMenu()
 }
 
-ko.applyBindings(new SidepanelView());
+
 // When expanding a restaurant-item in the menu, only then do we load the image to that restaurant.
 $('div.panel-group').on('show.bs.collapse', function(event) {
     target = $(event.target);
