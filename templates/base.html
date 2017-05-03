@@ -7,12 +7,9 @@
     <title>Neighborhood Map</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-        <script src="https://darkskyapp.github.io/skycons/skycons.js"></script>
 </head>
 <body>
     <header>
@@ -32,6 +29,7 @@
     <div class="container-full body-container">
         {% block body %}{% endblock %}
     </div>
-    <script src="{{url_for('static', filename='js/ko.js')}}"></script>
-    <script src="{{url_for('static', filename='js/map.js')}}"></script>
+    {% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
 </body>

@@ -12,11 +12,17 @@ from flask import (
 from models import db, Place, Marker
 from flask_scss import Scss
 from werkzeug.contrib.cache import SimpleCache
+from flask_assets import Environment, Bundle
 cache = SimpleCache()
 
 
 app = Flask(__name__, instance_relative_config=True)
 configure_app(app)
+
+assets = Environment(app)
+js = Bundle('js/ko.js', 'js/map.js', 'js/bootstrap.js', 'js/skycons.js',
+            filters='jsmin', output='gen/packed.js')
+assets.register('js_all', js)
 
 
 @app.route('/')
