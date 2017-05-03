@@ -148,7 +148,6 @@ function SidepanelView() {
             if (!self.knownGeolocations()[index].weather || self.refreshWeatherDummy()) {
                 self.refreshWeatherDummy(false);
                 self.loadingWeather(true);
-                console.log('getting weather-data...');
                 $.ajax({
                         url: "https://api.darksky.net/forecast/3f65e872a94f76c3714f5a8093fe83fa/" + lat + "," + lng + '?exclude=minutely,hourly,daily,flags&units=si',
                         dataType: 'jsonp',
@@ -171,7 +170,6 @@ function SidepanelView() {
             }
             // Only retrieve geoinfo if it is not cached
             if (!self.knownGeolocations()[index].geoinfo) {
-                console.log('getting geo-data...');
                 geocoder.geocode({
                     'location': location
                 }, function(results, status) {
@@ -216,7 +214,7 @@ function SidepanelView() {
     //     }
     // }).extend({rateLimit:{ timeout: 500, method: "notifyWhenChangesStop" } });
     // Place markers on map whenever markers changes
-    self.putmarkers = ko.computed(function() {
+    ko.computed(function() {
         var m = self.currentMarkers();
         if (self.google() && m.length > 0) {
             clearMarkers();
@@ -316,6 +314,17 @@ $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     var vm = ko.dataFor(document.body);
     if (vm.businesses().length === 0) {
         vm.getYelp();
+    }else {
+        if (vm.currentMarkers() !== vm.businesses()) {
+            vm.currentMarkers(vm.businesses());
+        }
+    }
+});
+
+$('li#nav-markers a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    var vm = ko.dataFor(document.body);
+    if (vm.currentMarkers() !== vm.markersData()) {
+        vm.currentMarkers(vm.markersData());
     }
 });
 
