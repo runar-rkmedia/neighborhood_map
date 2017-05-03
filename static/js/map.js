@@ -74,6 +74,7 @@ function deleteMarkers() {
 
 function fitMarkersInsideMap() {
     var bounds = new google.maps.LatLngBounds();
+    console.log(markers.length);
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].visible) {
             bounds.extend(markers[i].getPosition());

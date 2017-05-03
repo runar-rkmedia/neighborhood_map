@@ -94,10 +94,10 @@ function SidepanelView() {
         .done(function(data) {
             self.placesData(data.places);
             self.markersData(data.markers);
-            self.currentMarkers(data.markers);
             if (!self.currentPlaceData()) {
                 self.currentPlaceData(data.places[0]);
             }
+            setMarkersForPlace_id(self.markersData(),self.currentPlaceData().id);
         })
         .fail(function(e) {
             self.errormsg('Could not retrieve data: Error ' + e.status);
@@ -206,34 +206,42 @@ function SidepanelView() {
     self.refreshWeather = function() {
         self.refreshWeatherDummy(true);
     };
+
+    //*********** Helpers ***************//
+    function setMarkersForPlace_id(markers, place_id) {
+        var array = [];
+        // filter through markers for place.
+        for (var i = 0; i < markers.length; i++) {
+            var thisMark = markers[i];
+            if (thisMark.place_id === place_id) {
+                array.push(thisMark);
+            }
+        }
+        if (self.currentMarkers() !== array) {
+            self.currentMarkers(array);
+        }
+    }
+
     // Change the current place to what a user selected
     self.changePlace = function(place) {
         if (self.currentPlaceData() !== place) {
             self.currentPlaceData(place);
-            self.currentMarkers(self.markersData());
+            setMarkersForPlace_id(self.markersData(),self.currentPlaceData().id);
         }
     };
 
     //*********** BOOTSTRAP ***************//
     // When going to the Markers-tab, zoom to the markers for the current place.
     $('li#nav-markers a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        if (self.currentMarkers() !== self.markersData()) {
-            var array = [];
-            // filter through markers for place.
-            for (var i = 0; i < self.markersData().length; i++) {
-                var thisMark = self.markersData()[i];
-                if (thisMark.place_id === self.currentPlaceData().id) {
-                    array.push(thisMark);
-                }
-            }
-            self.currentMarkers(array);
-        }
+        setMarkersForPlace_id(self.markersData(),self.currentPlaceData().id);
+
         fitMarkersInsideMap();
+    }).extend({
+        deferred: true
     });
     // When going to Restaurants-tab, retrieve restaurants.
     $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         var within_map = map.getBounds().contains(markers[markers.length - 1].getPosition());
-        console.log(within_map);
         if (self.businesses().length === 0 || !within_map) {
             self.getYelp();
         } else {
@@ -301,9 +309,8 @@ function SidepanelView() {
     ko.computed(function() {
         self.currentPlaceData();
         var m = self.currentMarkers();
-        console.log(m);
         if (self.google() && m.length > 0) {
-            clearMarkers();
+            deleteMarkers();
             for (var i = 0; i < m.length; i++) {
                 var this_marker = m[i];
                 this_marker.position = {
