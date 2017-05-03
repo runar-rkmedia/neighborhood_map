@@ -157,8 +157,7 @@ function SidepanelView() {
                     .done(function(data) {
                         self.currentWeather(data);
                         self.knownGeolocations()[index].weather = data;
-                        skycons.add("icon1", data.currently.icon);
-                        skycons.play();
+
                         self.loadingWeather(false);
 
                     })
@@ -191,6 +190,12 @@ function SidepanelView() {
     }).extend({
         deferred: true
     });
+    ko.computed(function () {
+        if(self.currentWeather()){
+            skycons.set("icon1", self.currentWeather().currently.icon);
+            skycons.play();
+        }
+    })
 
     // Helper for matching a location-object inside an array of obhjects.
     function key_val_in_array(array, location_object) {
