@@ -68,8 +68,6 @@
         observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
-        <div class="filterdesc" data-bind="text: filterdesc"></div>
-
         <ul class="list" data-bind="foreach: filterMarkers">
             <li data-bind="text: name, click:$root.popInfoWindow"></li>
         </ul>

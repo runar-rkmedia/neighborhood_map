@@ -77,16 +77,6 @@ function SidepanelView() {
             });
         }
     });
-    // Filter-text for marker
-    self.filterdesc = ko.computed(function() {
-        if (self.currentPlaceData()) {
-            if (!self.userFilter()) {
-                return 'Listing all markers close to ' + self.currentPlaceData().name;
-            } else {
-                return 'Listing all markers matching the name "' + self.userFilter() + '"';
-            }
-        }
-    });
     // Filter the visibility of markers on screen
     ko.computed(function() {
         var f = self.filterMarkers().concat(self.filterBusinesses());
