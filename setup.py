@@ -1,3 +1,4 @@
+
 """Default data for Neighborhood-map."""
 
 places = [
@@ -22,11 +23,62 @@ places = [
         'description': 'Southern norway is the place to be.',
         'latitude': 52.341810,
         'longitude': 5.636922,
-        'zoom': 12,
+        'zoom': 11,
         'id': 3
+    },
+    {
+        'name': 'New York',
+        'description': 'The big apple',
+        'latitude': 40.714680,
+        'longitude': -73.980775,
+        'zoom': 10,
+        'id': 4
+    },
+    {
+        'name': 'Frankfurt',
+        'description': 'Germans, ahoy.',
+        'latitude': 50.111861,
+        'longitude': 8.683672,
+        'zoom': 13,
+        'id': 5
     }
 ]
 markers = [
+    {
+        'name': 'Goethe University',
+        'description': 'University',
+        'latitude': 50.126808,
+        'longitude': 8.667197,
+        'place_id': 5
+    },
+    {
+        'name': 'Zoo Frankfur',
+        'description': 'The Zoo',
+        'latitude': 50.115853,
+        'longitude': 8.702052,
+        'place_id': 5
+    },
+    {
+        'name': 'Festhalle Frankfurt',
+        'description': 'Party-party.',
+        'latitude': 50.111861,
+        'longitude': 8.650196,
+        'place_id': 5
+    },
+    {
+        'name': 'Passaic River',
+        'description': 'Some random place.',
+        'latitude': 40.734448,
+        'longitude': -74.159745,
+        'place_id': 4
+    },
+    {
+        'name': 'Jamaica Estates',
+        'description': 'Some random place.',
+        'latitude': 40.726695,
+        'longitude': -73.784700,
+        'place_id': 4
+    },
     {
         'name': 'Colloseum',
         'description': 'Legendary gladiator-fights',
