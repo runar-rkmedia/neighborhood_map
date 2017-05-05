@@ -13,7 +13,19 @@ You can preview the application here:
 
 <h2 style="color: #1d2a61">
 <a href="https://neighborhood-map-runar.herokuapp.com/">Neighborhood-map-runar.herokuapp.com</a>
+
 </h2>
+
+## Attribution
+Weather data collected from <a href="http://www.darksky.net">DarkSky.net</a>
+
+Restaurant-info collected from <a href="http://www.yelp.com">Yelp.com</a>
+
+Map by <a href="http://maps.google.com">Google Maps</a>
+
+Built with <a href="http://getbootstrap.com">Bootstrap</a>, <a href="http://knockoutjs.com">Knockout</a> and <a href="http://jquery.com">jQuery</a>
+</p>
+<p>App built by <a href="http://runarkristoffersen.com/">Runar Kristoffersen</a>, >as part of an assignment in the <a href="https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004">Full-Stack course at Udacity</a>.</p>
 
 # Getting up and running
 
