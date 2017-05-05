@@ -41,6 +41,9 @@
         <div class="input-group">
             <input id="filterPlaces" type="text" data-bind="textInput: userFilter"></div>
         <hr data-bind="visible: filterPlaces().length">
+        <!-- ko ifnot: filterPlaces().length || loading() -->
+        <p>No results found</p>
+        <!-- /ko -->
         <ul class="list">
             <!-- ko foreach: filterPlaces -->
             <li data-bind="text: name, click: $root.changePlace"></li>
@@ -61,13 +64,15 @@
             <label for="filterMarkerHereOnly" data-bind="text: 'Only in ' + currentPlaceData().name + ': '"></label>
             <!-- /ko -->
             <input id="filterMarkerHereOnly" type="checkbox" data-bind="checked: filterMarkerHereOnly"></div>
-        <div class="" data-bind="text: userFilter"></div>
 </form>
         <hr data-bind="visible: filterMarkers().length">
         {% with text = "Retrieving markers",
         observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
+        <!-- ko ifnot: filterMarkers().length || loading() -->
+        <p>No results found</p>
+        <!-- /ko -->
         <ul class="list" data-bind="foreach: filterMarkers">
             <li data-bind="text: name, click:$root.popInfoWindow"></li>
         </ul>
@@ -118,6 +123,9 @@
         observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
+        <!-- ko ifnot: filterBusinesses().length || loading() -->
+        <p>No results found</p>
+        <!-- /ko -->
         <hr data-bind="visible: filterBusinesses().length">
         <div class="panel-group" id="acc-restaurant" role="tablist" aria-multiselectable="true" data-bind="foreach: filterBusinesses">
             <div class="panel panel-default">
