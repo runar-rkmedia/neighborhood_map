@@ -37,10 +37,9 @@
         observable = 'loading' %}
         {% include 'includes/loadbutton.html' %}
         {% endwith %}
-        <label for="filterMarker">Filter</label>
+        <label for="filterPlaces">Filter</label>
         <div class="input-group">
-            <input id="filterMarker" type="text" data-bind="textInput: userFilter"></div>
-        <div class="" data-bind="text: userFilter"></div>
+            <input id="filterPlaces" type="text" data-bind="textInput: userFilter"></div>
         <hr data-bind="visible: filterPlaces().length">
         <ul class="list">
             <!-- ko foreach: filterPlaces -->
@@ -52,9 +51,18 @@
     <!-- Markers-list -->
     <div id="markers" role="tabpanel" class="tab-pane fade">
         <h3>Markers:</h3>
-        <label for="filterMarker">Filter</label>
+<form class="form-inline">
+    <label for="filterMarker">Filter</label>
+    <div class="input-group">
+        <input id="filterMarker" type="text" data-bind="textInput: userFilter">
+    </div>
         <div class="input-group">
-            <input id="filterMarker" type="text" data-bind="textInput: userFilter"></div>
+            <!-- ko if: currentPlaceData() -->
+            <label for="filterMarkerHereOnly" data-bind="text: 'Only in ' + currentPlaceData().name + ': '"></label>
+            <!-- /ko -->
+            <input id="filterMarkerHereOnly" type="checkbox" data-bind="checked: filterMarkerHereOnly"></div>
+        <div class="" data-bind="text: userFilter"></div>
+</form>
         <hr data-bind="visible: filterMarkers().length">
         {% with text = "Retrieving markers",
         observable = 'loading' %}

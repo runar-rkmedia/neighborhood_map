@@ -22,10 +22,11 @@ function SidepanelView() {
     self.loading = ko.observable();
     self.loadingWeather = ko.observable();
 
-    // User-input
+    // User-input§
     self.yelp_term = ko.observable();
     self.yelp_sorting = ko.observable('best_match');
     self.userFilter = ko.observable();
+    self.filterMarkerHereOnly = ko.observable(true);
 
     // Others
     self.refreshWeatherDummy = ko.observable();
@@ -50,15 +51,19 @@ function SidepanelView() {
     // Filter markers on search
     self.filterMarkers = ko.computed(function() {
         if (!self.userFilter()) {
-            if (self.currentPlaceData()) {
+            if (self.currentPlaceData() && self.filterMarkerHereOnly()) {
                 return ko.utils.arrayFilter(self.markersData(), function(marker) {
                     return marker.place_id == self.currentPlaceData().id;
                 });
             }
-            return self.markers();
+            return self.markersData();
         } else {
             return ko.utils.arrayFilter(self.markersData(), function(marker) {
-                return marker.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) != -1 && marker.place_id == self.currentPlaceData().id;
+                var filterHere = true;
+                if (self.filterMarkerHereOnly()) {
+                    filterHere = marker.place_id == self.currentPlaceData().id;
+                }
+                return marker.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) != -1 && filterHere;
             });
         }
     });
