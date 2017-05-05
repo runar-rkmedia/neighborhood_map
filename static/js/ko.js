@@ -58,7 +58,7 @@ function SidepanelView() {
             return self.markers();
         } else {
             return ko.utils.arrayFilter(self.markersData(), function(marker) {
-                return marker.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) != -1;
+                return marker.name.toLowerCase().indexOf(self.userFilter().toLowerCase()) != -1 && marker.place_id == self.currentPlaceData().id;
             });
         }
     });
