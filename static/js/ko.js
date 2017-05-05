@@ -103,7 +103,7 @@ function SidepanelView() {
             if (!self.currentPlaceData()) {
                 self.currentPlaceData(data.places[0]);
             }
-            setMarkersForPlace_id(self.markersData(),self.currentPlaceData().id);
+            setMarkersForPlace_id(self.markersData(), self.currentPlaceData().id);
         })
         .fail(function(e) {
             self.errormsg('Could not retrieve data: Error ' + e.status);
@@ -198,8 +198,8 @@ function SidepanelView() {
     }).extend({
         deferred: true
     });
-    ko.computed(function () {
-        if(self.currentWeather()){
+    ko.computed(function() {
+        if (self.currentWeather()) {
             skycons.set("icon1", self.currentWeather().currently.icon);
             skycons.play();
         }
@@ -239,14 +239,14 @@ function SidepanelView() {
     self.changePlace = function(place) {
         if (self.currentPlaceData() !== place) {
             self.currentPlaceData(place);
-            setMarkersForPlace_id(self.markersData(),self.currentPlaceData().id);
+            setMarkersForPlace_id(self.markersData(), self.currentPlaceData().id);
         }
     };
 
     //*********** BOOTSTRAP ***************//
     // When going to the Markers-tab, zoom to the markers for the current place.
     $('li#nav-markers a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        setMarkersForPlace_id(self.markersData(),self.currentPlaceData().id);
+        setMarkersForPlace_id(self.markersData(), self.currentPlaceData().id);
 
         fitMarkersInsideMap();
     }).extend({
@@ -272,11 +272,9 @@ function SidepanelView() {
         img.removeClass('dontload');
         // Scroll to this item
         var scrollTo = target.parent().offset().top + $('aside').scrollTop() - $('aside').offset().top;
-        if(offset) {
-            $('aside').animate({
-                scrollTop: scrollTo,
-            }, 500);
-        }
+        $('aside').animate({
+            scrollTop: scrollTo,
+        }, 500);
 
     });
 
