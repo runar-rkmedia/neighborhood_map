@@ -62,6 +62,16 @@ function SidepanelView() {
             });
         }
     });
+    // Filter businesses on search
+    self.filterBusinesses = ko.computed(function() {
+        if (!self.yelp_term() || self.lastYelpSearch == self.yelp_term()) {
+            return self.businesses();
+        } else {
+            return ko.utils.arrayFilter(self.businesses(), function(business) {
+                return business.name.toLowerCase().indexOf(self.yelp_term().toLowerCase()) != -1;
+            });
+        }
+    });
     // Filter-text for marker
     self.filterdesc = ko.computed(function() {
         if (self.currentPlaceData()) {
@@ -74,10 +84,11 @@ function SidepanelView() {
     });
     // Filter the visibility of markers on screen
     ko.computed(function() {
-        if (self.filterMarkers() && self.google() && markers.length > 0) {
+        var f = self.filterMarkers().concat(self.filterBusinesses());
+        if (f && self.google() && markers.length > 0) {
             for (var i = 0; i < markers.length; i++) {
                 this_mark = markers[i];
-                var result = $.grep(self.filterMarkers(), function(e) { // jshint ignore:line
+                var result = $.grep(f, function(e) { // jshint ignore:line
                     return e.id == this_mark.id;
                 });
                 if (result.length > 0) {
@@ -104,12 +115,14 @@ function SidepanelView() {
         });
 
     // Retrieve restaurants from yelp
+    var lastYelpSearch;
     self.getYelp = function(event) {
         var c = map.getCenter();
         var p = self.currentPlaceData();
         var term = "";
         if (self.yelp_term()) {
             term = self.yelp_term();
+            lastYelpSearch = term;
         }
         if (p && c) {
             self.loading(true);
