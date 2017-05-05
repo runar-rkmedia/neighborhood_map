@@ -41,7 +41,7 @@ You need to provide some basic configuration, like database-name for PSQL, clien
 
 You have two choices for how you wish to set these config-parameters, of which only one is required.
 
-### 1. Store them in a file
+### Option 1. Store them in a file
 Create a file `instance/config.cfg`.
 
 the contents of this file shuld be in this format:
@@ -53,7 +53,7 @@ YELP_CLIENT_ID="YOUR CLIENT ID HERE"
 YELP_CLIENT_SECRET="YOUR CLIENT SECRET HERE"
 ```
 
-### 2. OS-envirnment variables.
+### Option 2. OS-envirnment variables.
 ```
 export SQLALCHEMY_DATABASE_URI=postgres:///DATABASE_NAME_HERE
 export YELP_CLIENT_ID=YOUR CLIENT ID HERE
