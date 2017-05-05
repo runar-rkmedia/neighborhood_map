@@ -26,6 +26,7 @@ function initMap() {
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
+    toggleBounce(marker);
     // Check to make sure the infowindow is not already opened on this marker.
     c = $('#collapse' + marker.id);
     c.collapse('show');
@@ -77,4 +78,10 @@ function fitMarkersInsideMap() {
         }
     }
     map.fitBounds(bounds);
+}
+function toggleBounce(marker) {
+  if (marker.getAnimation() === null) {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ marker.setAnimation(null); }, 710);  } else {
+  }
 }
