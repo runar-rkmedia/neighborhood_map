@@ -275,7 +275,16 @@ function SidepanelView() {
         img.attr('src', img.attr('url'));
         img.removeClass('hidden');
         img.removeClass('dontload');
+        // Scroll to this item
+        var scrollTo = target.parent().offset().top + $('aside').scrollTop() - $('aside').offset().top;
+        if(offset) {
+            $('aside').animate({
+                scrollTop: scrollTo,
+            }, 500);
+        }
+
     });
+
     // Expand an item
     self.expandItem = function(item, event) {
         var targets = $(event.target).parent().find('.expandable');
