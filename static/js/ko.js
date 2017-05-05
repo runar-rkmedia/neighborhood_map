@@ -131,11 +131,17 @@ function SidepanelView() {
                     self.loading(false);
                     self.businesses(data.businesses);
                     self.currentMarkers(data.businesses);
+                })
+                .fail(function(e) {
+                    console.log(e);
+                    self.loading(false);
+                    self.errormsg('Could not retrieve info from yelp: Error ' + e.status);
                 });
         }
     };
 
-    // Retrieve weather-data
+    // Retrieve weather-data and geolocation
+    // TODO: refactor
     ko.computed(function() {
         // this.extend({rateLimit: 2000})
         self.refreshWeatherDummy(); // In case of manual refresh
@@ -188,7 +194,7 @@ function SidepanelView() {
                             self.knownGeolocations()[index].geoinfo = results;
                         } else {}
                     } else {
-                        window.alert('Geocoder failed due to: ' + status);
+                        self.errormsg('Geocoder failed due to: ' + status);
                     }
                 });
             } else {
