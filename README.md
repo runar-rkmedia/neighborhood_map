@@ -48,14 +48,12 @@ the contents of this file shuld be in this format:
 ```
 TESTING=False
 DEBUG=True
-SQLALCHEMY_DATABASE_URI="postgres:///DATABASE_NAME_HERE"
 YELP_CLIENT_ID="YOUR CLIENT ID HERE"
 YELP_CLIENT_SECRET="YOUR CLIENT SECRET HERE"
 ```
 
 ### Option 2. OS-envirnment variables.
 ```
-export SQLALCHEMY_DATABASE_URI=postgres:///DATABASE_NAME_HERE
 export YELP_CLIENT_ID=YOUR CLIENT ID HERE
 export YELP_CLIENT_SECRET=YOUR CLIENT SECRET HERE
 ```
@@ -71,7 +69,3 @@ python app.py --setup
 ```
 python app.py
 ```
-
-
-
-https://classroom.udacity.com/nanodegrees/nd004/parts/135b6edc-f1cd-4cd9-b831-1908ede75737/modules/4fd8d440-9428-4de7-93c0-4dca17a36700/lessons/2711658591239847/concepts/26906985370923
