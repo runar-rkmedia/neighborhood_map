@@ -6,8 +6,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Neighborhood Map</title>
     {% assets "css_all" %}
-<link rel="stylesheet" href="{{ ASSET_URL }}" />
-{% endassets %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
 </head>
 <body>
     <header>
@@ -31,6 +31,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
     {% assets "js_all" %}
     <script src="{{ ASSET_URL }}"></script>
-{% endassets %}
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>
+    {% endassets %}
+    <script async defer onerror="mapError()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGMk2t2iK-74GgkVpxl0w26PYNVwWppsc&v=3&callback=initMap"></script>
 </body>

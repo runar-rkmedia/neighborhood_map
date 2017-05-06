@@ -1,5 +1,4 @@
-var map;
-var geocoder;
+var map, geocoder, vm;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
@@ -18,7 +17,7 @@ function initMap() {
     map.setZoom(11);
     largeInfowindow = new google.maps.InfoWindow();
     ko.applyBindings(new SidepanelView());
-    var vm = ko.dataFor(document.body);
+    vm = ko.dataFor(document.body);
     vm.google(!!window.google);
 
     google.maps.event.addDomListener(window, 'resize', function() {
@@ -31,7 +30,7 @@ function initMap() {
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
     toggleBounce(marker);
-    map.panTo(marker.getPosition())
+    map.panTo(marker.getPosition());
     // Check to make sure the infowindow is not already opened on this marker.
     c = $('#collapse' + marker.id);
     c.collapse('show');
@@ -95,6 +94,8 @@ function toggleBounce(marker) {
 }
 
 function gm_authFailure() {
-    var vm = ko.dataFor(document.body);
     vm.errormsg('There was a problem authentication with Google Maps.');
+}
+function mapError() {
+    $('.errormsg').text('Something went wrong with retrieving Google Maps.');
 }
