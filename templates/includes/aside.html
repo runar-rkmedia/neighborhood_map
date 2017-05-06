@@ -88,7 +88,7 @@
         <form data-bind="submit: getYelp">
             <label for="restaurantInputTerm">Search term:</label>
             <div class="input-group">
-                <input type="search" class="form-control" data-bind="textInput: yelp_term" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
+                <input type="search" class="form-control" data-bind="textInput: yelpTerm" id="restaurantInputTerm" placeholder="tacos, cheap dinner, Max's">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
                 </span>
@@ -99,21 +99,21 @@
                 <label>Sorted by:</label><br>
                 <div>
                     <label class="radio-inline">
-                        <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelp_sorting">
+                        <input type="radio" id="radio_sort1" value="best_match" data-bind="checked: yelpSorting">
                         Best Match
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelp_sorting">
+                        <input type="radio" id="radio_sort2" value="rating" data-bind="checked: yelpSorting">
                         Rating
                     </label>
                 </div>
                 <div>
                     <label class="radio-inline">
-                        <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelp_sorting">
+                        <input type="radio" id="radio_sort3" value="review_count" data-bind="checked: yelpSorting">
                         Number of reviews
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelp_sorting">
+                        <input type="radio" id="radio_sort4" value="distance" data-bind="checked: yelpSorting">
                         Distance
                     </label>
                 </div>

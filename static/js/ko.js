@@ -23,8 +23,8 @@ function SidepanelView() {
     self.loadingWeather = ko.observable();
 
     // User-input§
-    self.yelp_term = ko.observable();
-    self.yelp_sorting = ko.observable('best_match');
+    self.yelpTerm = ko.observable();
+    self.yelpSorting = ko.observable('best_match');
     self.userFilter = ko.observable();
     self.filterMarkerHereOnly = ko.observable(true);
 
@@ -69,11 +69,11 @@ function SidepanelView() {
     });
     // Filter businesses on search
     self.filterBusinesses = ko.computed(function() {
-        if (!self.yelp_term() || self.lastYelpSearch == self.yelp_term()) {
+        if (!self.yelpTerm() || self.lastYelpSearch == self.yelpTerm()) {
             return self.businesses();
         } else {
             return ko.utils.arrayFilter(self.businesses(), function(business) {
-                return business.name.toLowerCase().indexOf(self.yelp_term().toLowerCase()) != -1;
+                return business.name.toLowerCase().indexOf(self.yelpTerm().toLowerCase()) != -1;
             });
         }
     });
@@ -82,14 +82,14 @@ function SidepanelView() {
         var f = self.filterMarkers().concat(self.filterBusinesses());
         if (f && self.google() && markers.length > 0) {
             for (var i = 0; i < markers.length; i++) {
-                this_mark = markers[i];
+                thisMark = markers[i];
                 var result = $.grep(f, function(e) { // jshint ignore:line
-                    return e.id == this_mark.id;
+                    return e.id == thisMark.id;
                 });
                 if (result.length > 0) {
-                    this_mark.setVisible(true);
+                    thisMark.setVisible(true);
                 } else {
-                    this_mark.setVisible(false);
+                    thisMark.setVisible(false);
                 }
             }
         }
@@ -103,7 +103,7 @@ function SidepanelView() {
             if (!self.currentPlaceData()) {
                 self.currentPlaceData(data.places[0]);
             }
-            setMarkersForPlace_id(self.markersData(), self.currentPlaceData().id);
+            setMarkersForPlaceId(self.markersData(), self.currentPlaceData().id);
         })
         .fail(function(e) {
             self.errormsg('Could not retrieve data: Error ' + e.status);
@@ -115,8 +115,8 @@ function SidepanelView() {
         var c = map.getCenter();
         var p = self.currentPlaceData();
         var term = "";
-        if (self.yelp_term()) {
-            term = self.yelp_term();
+        if (self.yelpTerm()) {
+            term = self.yelpTerm();
             lastYelpSearch = term;
         }
         if (p && c) {
@@ -125,7 +125,7 @@ function SidepanelView() {
                     'latitude': c.lat(),
                     'longitude': c.lng(),
                     'term': term,
-                    'sort_by': self.yelp_sorting,
+                    'sort_by': self.yelpSorting,
                 })
                 .done(function(data) {
                     self.loading(false);
@@ -153,7 +153,7 @@ function SidepanelView() {
                 lat: lat,
                 lng: lng
             };
-            var index = key_val_in_array(self.knownGeolocations(), location);
+            var index = keyValInArray(self.knownGeolocations(), location);
             if (index == -1) {
                 self.knownGeolocations().push({
                     location: location
@@ -212,10 +212,10 @@ function SidepanelView() {
     });
 
     // Helper for matching a location-object inside an array of obhjects.
-    function key_val_in_array(array, location_object) {
+    function keyValInArray(array, locationObject) {
         for (var i = 0; i < array.length; i++) {
             var thisData = array[i];
-            if (thisData.location.lat == location_object.lat && thisData.location.lng == location_object.lng) {
+            if (thisData.location.lat == locationObject.lat && thisData.location.lng == locationObject.lng) {
                 return i;
             }
         }
@@ -227,7 +227,7 @@ function SidepanelView() {
     };
 
     //*********** Helpers ***************//
-    function setMarkersForPlace_id(markers, place_id) {
+    function setMarkersForPlaceId(markers, place_id) {
         var array = [];
         // filter through markers for place.
         for (var i = 0; i < markers.length; i++) {
@@ -245,14 +245,14 @@ function SidepanelView() {
     self.changePlace = function(place) {
         if (self.currentPlaceData() !== place) {
             self.currentPlaceData(place);
-            setMarkersForPlace_id(self.markersData(), self.currentPlaceData().id);
+            setMarkersForPlaceId(self.markersData(), self.currentPlaceData().id);
         }
     };
 
     //*********** BOOTSTRAP ***************//
     // When going to the Markers-tab, zoom to the markers for the current place.
     $('li#nav-markers a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        setMarkersForPlace_id(self.markersData(), self.currentPlaceData().id);
+        setMarkersForPlaceId(self.markersData(), self.currentPlaceData().id);
 
         fitMarkersInsideMap();
     }).extend({
@@ -260,8 +260,8 @@ function SidepanelView() {
     });
     // When going to Restaurants-tab, retrieve restaurants.
     $('li#nav-restaurants a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        var within_map = map.getBounds().contains(markers[markers.length - 1].getPosition());
-        if (self.businesses().length === 0 || !within_map) {
+        var withinMap = map.getBounds().contains(markers[markers.length - 1].getPosition());
+        if (self.businesses().length === 0 || !withinMap) {
             self.getYelp();
         } else {
             if (self.currentMarkers() !== self.businesses()) {
@@ -338,14 +338,14 @@ function SidepanelView() {
         if (self.google() && m.length > 0) {
             deleteMarkers();
             for (var i = 0; i < m.length; i++) {
-                var this_marker = m[i];
-                this_marker.position = {
-                    lat: this_marker.coordinates.latitude,
-                    lng: this_marker.coordinates.longitude
+                var thisMarker = m[i];
+                thisMarker.position = {
+                    lat: thisMarker.coordinates.latitude,
+                    lng: thisMarker.coordinates.longitude
                 };
-                this_marker.map = map;
-                this_marker.animation = google.maps.Animation.DROP;
-                var marker = new google.maps.Marker(this_marker);
+                thisMarker.map = map;
+                thisMarker.animation = google.maps.Animation.DROP;
+                var marker = new google.maps.Marker(thisMarker);
 
                 // Push the marker to our array of markers.
                 markers.push(marker);
@@ -370,9 +370,9 @@ function SidepanelView() {
         }
         // Open the correct infowindow when click on marker in menu
         for (var j = 0; j < markers.length; j++) {
-            this_map_marker = markers[j];
-            if (this_map_marker.id === markerData.id) {
-                populateInfoWindow(this_map_marker, largeInfowindow);
+            var thisMapMarker = markers[j];
+            if (thisMapMarker.id === markerData.id) {
+                populateInfoWindow(thisMapMarker, largeInfowindow);
             }
         }
     };

@@ -88,4 +88,4 @@ function toggleBounce(marker) {
 function gm_authFailure() {
     var vm = ko.dataFor(document.body);
     vm.errormsg('There was a problem authentication with Google Maps.');
-};
+}
