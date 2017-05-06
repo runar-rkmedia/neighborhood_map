@@ -20,6 +20,10 @@ function initMap() {
     ko.applyBindings(new SidepanelView());
     var vm = ko.dataFor(document.body);
     vm.google(!!window.google);
+
+    google.maps.event.addDomListener(window, 'resize', function() {
+        fitMarkersInsideMap();
+    });
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -80,12 +84,16 @@ function fitMarkersInsideMap() {
     }
     map.fitBounds(bounds);
 }
+
 function toggleBounce(marker) {
-  if (marker.getAnimation() === null) {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function(){ marker.setAnimation(null); }, 710);  } else {
-  }
+    if (marker.getAnimation() === null) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            marker.setAnimation(null);
+        }, 710);
+    } else {}
 }
+
 function gm_authFailure() {
     var vm = ko.dataFor(document.body);
     vm.errormsg('There was a problem authentication with Google Maps.');
