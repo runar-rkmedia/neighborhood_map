@@ -31,8 +31,6 @@ class TestingConfig(BaseConfig):
     """Configuration for testing."""
     DEBUG = False
     TESTING = True
-    # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    # SECRET_KEY = 'dev'
 
 
 config = {
