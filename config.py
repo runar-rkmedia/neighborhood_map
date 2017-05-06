@@ -7,9 +7,12 @@ class BaseConfig(object):
     DEBUG = False
     TESTING = False
     PORT = int(os.environ.get("PORT", 5000))
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', None)
-    YELP_CLIENT_ID = os.environ.get('YELP_CLIENT_ID', None)
-    YELP_CLIENT_SECRET = os.environ.get('YELP_CLIENT_SECRET', None)
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DATABASE_URL', 'sqlite:///neighborhood.db')
+    YELP_CLIENT_ID = os.environ.get(
+        'YELP_CLIENT_ID', None)
+    YELP_CLIENT_SECRET = os.environ.get(
+        'YELP_CLIENT_SECRET', None)
     # In production, a truly random key shoud be stored in a production-config,
     # which will override this. For dev-purposes, just use 'dev' as secret key.
     # SECRET_KEY = 'dev'
@@ -49,4 +52,6 @@ def configure_app(app):
     app.config.from_pyfile('config.cfg', silent=True)
     for key in required_keys:
         if not app.config[key]:
-            raise ValueError("Required key '{}' missing. See Readme".format(key))
+            raise ValueError(
+                "Required key '{}' missing. See Readme".format(key)
+                )
