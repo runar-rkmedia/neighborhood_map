@@ -27,6 +27,7 @@ function initMap() {
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
     toggleBounce(marker);
+    map.panTo(marker.getPosition())
     // Check to make sure the infowindow is not already opened on this marker.
     c = $('#collapse' + marker.id);
     c.collapse('show');

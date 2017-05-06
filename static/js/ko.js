@@ -373,6 +373,7 @@ function SidepanelView() {
             var thisMapMarker = markers[j];
             if (thisMapMarker.id === markerData.id) {
                 populateInfoWindow(thisMapMarker, largeInfowindow);
+                return;
             }
         }
     };
