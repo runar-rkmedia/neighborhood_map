@@ -85,3 +85,7 @@ function toggleBounce(marker) {
       setTimeout(function(){ marker.setAnimation(null); }, 710);  } else {
   }
 }
+function gm_authFailure() {
+    var vm = ko.dataFor(document.body);
+    vm.errormsg('There was a problem authentication with Google Maps.');
+};
